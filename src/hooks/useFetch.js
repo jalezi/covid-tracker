@@ -23,7 +23,7 @@ const useFetch = (initialUrl, initialParams = {}, skip = false) => {
       if (skip) return;
       setIsLoading(true);
       try {
-        const response = await fetch(`${url}${queryString}`);
+        const response = await fetch(`${url}?${queryString}`);
         const result = await response.json();
         if (response.ok) {
           setData(result);
