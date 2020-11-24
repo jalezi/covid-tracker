@@ -2,7 +2,7 @@ import './App.css';
 import Card from './components/Card';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { useLayoutEffect, useRef, useState, useEffect } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 
 function App() {
   const ourRef = useRef(null);
@@ -14,12 +14,9 @@ function App() {
     const onScroll = () => {
       header.style.opacity = 0.2;
       footer.style.opacity = 0.2;
-      // Clear our timeout throughout the scroll
       window.clearTimeout(isScrolling);
 
-      // Set a timeout to run after scrolling ends
       isScrolling = setTimeout(function () {
-        // Run the callback
         header.style.opacity = 1;
         footer.style.opacity = 1;
       }, 100);
@@ -34,7 +31,8 @@ function App() {
     <div className="App">
       <Header />
       <main ref={ourRef}>
-        <Card title="world"></Card>
+        <Card title="global"></Card>
+        <Card title="world2"></Card>
       </main>
       <Footer />
       <div id="top-of-site-pixel-anchor"></div>

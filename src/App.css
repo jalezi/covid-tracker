@@ -2,6 +2,19 @@
   font-size: 0.85rem;
 }
 
+.App > main {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.App > main > section {
+  flex-grow: 1;
+}
+
+.App > main > section:not(:last-child) {
+  margin-bottom: 8px;
+}
+
 @media only screen and (min-width: 375px) {
   .App {
     font-size: 1rem;

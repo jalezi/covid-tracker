@@ -7,7 +7,5 @@
   padding: 8px 0;
   color: var(--brown-grey);
   background-color: var(--olive);
-}
-
-.Header > .header-title {
+  transition: all 1s ease-in;
 }

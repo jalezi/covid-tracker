@@ -7,4 +7,5 @@
   padding: 8px 0;
   color: var(--brown-grey);
   background-color: var(--olive);
+  transition: all 1s ease-in;
 }

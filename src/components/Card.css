@@ -1,5 +1,6 @@
 .Card {
   background-color: var(--white);
+  min-width: 100%;
 }
 
 .Card > header {
