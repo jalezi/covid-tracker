@@ -1,0 +1,33 @@
+.SingleDataSkeleton {
+  margin: 5px 5px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 2px solid transparent;
+  border-radius: 15px;
+  color: transparent;
+
+  animation: bcg-anim 2s ease-in-out infinite alternate;
+}
+.SingleDataSkeleton span {
+  padding: 3px 5px;
+  font-size: 0.8em;
+}
+
+.SingleDataSkeleton .title {
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.SingleDataSkeleton .data {
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+@keyframes bcg-anim {
+  0% {
+    background-color: lightgray;
+  }
+  100% {
+    background-color: gray;
+  }
+}

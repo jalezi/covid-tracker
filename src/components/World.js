@@ -4,7 +4,7 @@ import Data from './Data';
 import useFetch from '../hooks/useFetch';
 import { worldDataObject } from '../utils';
 
-function World({ url, params, title }) {
+function World({ url, params, title, keyPrefix }) {
   const {
     data,
     isLoading,
@@ -15,21 +15,44 @@ function World({ url, params, title }) {
     refetch,
   } = useFetch(url, params);
 
-  if (isLoading) return <div>...loading</div>;
-
   if (hasError) return <div>{errorMessage}</div>;
 
-  const basicData = worldDataObject.makeBasicData(data);
-  const perMillionData = worldDataObject.makePerMillionData(data);
-  const perPersonData = worldDataObject.makePerPersonData(data);
+  let basicData = worldDataObject.makeBasicData({});
+  let perMillionData = worldDataObject.makePerMillionData({});
+  let perPersonData = worldDataObject.makePerPersonData({});
+
+  if (!isLoading) {
+    basicData = worldDataObject.makeBasicData(data);
+    perMillionData = worldDataObject.makePerMillionData(data);
+    perPersonData = worldDataObject.makePerPersonData(data);
+  }
 
   return (
     <article className="World">
       <h3 className="article-title">{title}</h3>
       <button onClick={refetch}>refresh</button>
-      <Data data={basicData.dataObject} title="basic" />
-      <Data data={perMillionData.dataObject} title="per million" />
-      <Data data={perPersonData.dataObject} title="per people" />
+
+      <Data
+        isLoading={isLoading}
+        data={basicData.dataObject}
+        title="basic"
+        keyPrefix={keyPrefix}
+        keySuffix={'world-basic'}
+      />
+      <Data
+        isLoading={isLoading}
+        data={perMillionData.dataObject}
+        title="per million"
+        keyPrefix={keyPrefix}
+        keySuffix="world-per-million"
+      />
+      <Data
+        isLoading={isLoading}
+        data={perPersonData.dataObject}
+        title="per people"
+        keyPrefix={keyPrefix}
+        keySuffix="world-per-people"
+      />
     </article>
   );
 }

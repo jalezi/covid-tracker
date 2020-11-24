@@ -15,16 +15,18 @@ function Card({ title = 'title' }) {
   return (
     <section className="Card">
       <h2 className="card-title">{title}</h2>
-      <World url={URL.WORLD_ALL_URL} title="today" />
+      <World url={URL.WORLD_ALL_URL} title="today" keyPrefix="today" />
       <World
         url={URL.WORLD_ALL_URL}
         params={yesterdayParams}
         title="yesterday"
+        keyPrefix="yesterday"
       />
       <World
         url={URL.WORLD_ALL_URL}
         params={twoDaysAgoParams}
         title="two days ago"
+        keyPrefix="two-days-ago"
       />
     </section>
   );
