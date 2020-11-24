@@ -26,6 +26,7 @@ function World({ url, params, title }) {
   return (
     <article className="World">
       <h3 className="article-title">{title}</h3>
+      <button onClick={refetch}>refresh</button>
       <Data data={basicData.dataObject} title="basic" />
       <Data data={perMillionData.dataObject} title="per million" />
       <Data data={perPersonData.dataObject} title="per people" />
