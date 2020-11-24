@@ -1,0 +1,7 @@
+.Header {
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.Header > .header-title {
+}
