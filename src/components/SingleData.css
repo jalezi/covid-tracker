@@ -10,13 +10,13 @@
   font-size: 0.8em;
 }
 
-.title {
+.SingleData > .title {
   background-color: gray;
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
 }
 
-.data {
+.SingleData > .data {
   background-color: lightgray;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;

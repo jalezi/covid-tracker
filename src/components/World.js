@@ -25,13 +25,10 @@ function World({ url, params, title }) {
 
   return (
     <article className="World">
-      <h3>{title}</h3>
-      <h3>Basic</h3>
-      <Data data={basicData.dataObject} />
-      <h3>Per Million</h3>
-      <Data data={perMillionData.dataObject} />
-      <h3>Per People</h3>
-      <Data data={perPersonData.dataObject} />
+      <h3 className="article-title">{title}</h3>
+      <Data data={basicData.dataObject} title="basic" />
+      <Data data={perMillionData.dataObject} title="per million" />
+      <Data data={perPersonData.dataObject} title="per people" />
     </article>
   );
 }

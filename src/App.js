@@ -1,15 +1,6 @@
 import './App.css';
-
-import { URL, utilities } from './utils';
-import World from './components/World';
-
-const yesterdayParams = {
-  yesterday: true,
-};
-
-const twoDaysAgoParams = {
-  twoDaysAgo: true,
-};
+import Card from './components/Card';
+import { utilities } from './utils';
 
 function App() {
   const formatStr = 'E, d. MMM yyyy';
@@ -23,20 +14,7 @@ function App() {
         <h1>Covid tracker</h1>
         <p>From NOVEL CoVID19 API: disease.sh/v3/covid</p>
         <p>Date: {todayRender}</p>
-        <section>
-          <h2>World</h2>
-          <World url={URL.WORLD_ALL_URL} title="today" />
-          <World
-            url={URL.WORLD_ALL_URL}
-            params={yesterdayParams}
-            title="yesterday"
-          />
-          <World
-            url={URL.WORLD_ALL_URL}
-            params={twoDaysAgoParams}
-            title="two days ago"
-          />
-        </section>
+        <Card title="world"></Card>
       </main>
       <footer>FOOTER</footer>
     </div>

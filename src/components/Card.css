@@ -1,0 +1,7 @@
+.Card {
+  background-color: lightgray;
+}
+
+.Card > .card-title {
+  text-align: center;
+}
