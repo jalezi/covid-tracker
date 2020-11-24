@@ -1,3 +1,8 @@
+.Data {
+  border: 1px solid black;
+  margin-bottom: 5px;
+}
+
 .Data > .data-title {
   text-align: center;
 }
