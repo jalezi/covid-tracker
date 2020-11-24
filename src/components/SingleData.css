@@ -11,13 +11,13 @@
 }
 
 .SingleData > .title {
-  background-color: gray;
+  background-color: var(--singledata-title-bcg-color);
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
 }
 
 .SingleData > .data {
-  background-color: lightgray;
+  background-color: var(--singledata-data-bcg-color);
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
 }

@@ -1,3 +1,8 @@
+:root {
+  --singledata-title-bcg-color: gray;
+  --singledata-data-bcg-color: lightgray;
+}
+
 *,
 *::before,
 *::after {
