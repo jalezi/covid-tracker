@@ -1,0 +1,10 @@
+.App {
+  width: 100vw;
+  font-size: 0.85rem;
+}
+
+@media only screen and (min-width: 375px) {
+  .App {
+    font-size: 1rem;
+  }
+}
