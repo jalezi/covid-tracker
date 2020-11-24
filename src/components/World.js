@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './World.css';
 import Data from './Data';
 import useFetch from '../hooks/useFetch';
@@ -15,6 +15,8 @@ function World({ url, params, title, keyPrefix }) {
     refetch,
   } = useFetch(url, params);
 
+  const [expand, setExpand] = useState(false);
+
   if (hasError) return <div>{errorMessage}</div>;
 
   let basicData = worldDataObject.makeBasicData({});
@@ -27,10 +29,18 @@ function World({ url, params, title, keyPrefix }) {
     perPersonData = worldDataObject.makePerPersonData(data);
   }
 
+  const handleExpandClick = event => {
+    const button = event.target;
+    setExpand(prev => !prev);
+    !expand ? (button.innerText = 'Less') : (button.innerText = 'More');
+  };
+
   return (
     <article className="World">
-      <h3 className="article-title">{title}</h3>
-      <button onClick={refetch}>refresh</button>
+      <header>
+        <h3 className="article-title">{title}</h3>
+        <button onClick={refetch}>refresh</button>
+      </header>
 
       <Data
         isLoading={isLoading}
@@ -39,20 +49,27 @@ function World({ url, params, title, keyPrefix }) {
         keyPrefix={keyPrefix}
         keySuffix={'world-basic'}
       />
-      <Data
-        isLoading={isLoading}
-        data={perMillionData.dataObject}
-        title="per million"
-        keyPrefix={keyPrefix}
-        keySuffix="world-per-million"
-      />
-      <Data
-        isLoading={isLoading}
-        data={perPersonData.dataObject}
-        title="per people"
-        keyPrefix={keyPrefix}
-        keySuffix="world-per-people"
-      />
+      <footer>
+        <button onClick={handleExpandClick}>More</button>
+      </footer>
+      {expand ? (
+        <>
+          <Data
+            isLoading={isLoading}
+            data={perMillionData.dataObject}
+            title="per million"
+            keyPrefix={keyPrefix}
+            keySuffix="world-per-million"
+          />
+          <Data
+            isLoading={isLoading}
+            data={perPersonData.dataObject}
+            title="per people"
+            keyPrefix={keyPrefix}
+            keySuffix="world-per-people"
+          />
+        </>
+      ) : null}
     </article>
   );
 }

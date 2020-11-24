@@ -1,7 +1,14 @@
 .Card {
-  background-color: lightgray;
+  background-color: var(--white);
 }
 
-.Card > .card-title {
+.Card > header {
+  padding: 8px 0;
   text-align: center;
+  color: var(--white);
+  background-color: var(--brown-grey);
+}
+
+.Card > header > .card-title {
+  text-transform: uppercase;
 }

@@ -1,7 +1,17 @@
 .World {
-  background-color: #a8a5a5;
+  color: var(--white);
+  background-color: var(--brown-grey);
 }
 
-.World > .article-title {
-  text-align: center;
+.World > header {
+  padding: 8px 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.World > footer {
+  padding: 8px 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }

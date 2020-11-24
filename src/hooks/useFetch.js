@@ -39,7 +39,7 @@ const useFetch = (initialUrl, initialParams = {}, skip = false) => {
       }
     };
     // TODO remove setTimeout after no longer needed
-    setTimeout(() => fetchData(), 500);
+    setTimeout(() => fetchData(), 5000);
   }, [url, params, refetchIndex, queryString, skip]);
 
   return {

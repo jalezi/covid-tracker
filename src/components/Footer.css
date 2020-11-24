@@ -1,10 +1,7 @@
-.Header {
+.Footer {
   text-align: center;
   text-transform: uppercase;
   padding: 8px 0;
   color: var(--brown-grey);
   background-color: var(--olive);
-}
-
-.Header > .header-title {
 }

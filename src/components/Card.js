@@ -14,7 +14,9 @@ const twoDaysAgoParams = {
 function Card({ title = 'title' }) {
   return (
     <section className="Card">
-      <h2 className="card-title">{title}</h2>
+      <header>
+        <h2 className="card-title">{title}</h2>
+      </header>
       <World url={URL.WORLD_ALL_URL} title="today" keyPrefix="today" />
       <World
         url={URL.WORLD_ALL_URL}

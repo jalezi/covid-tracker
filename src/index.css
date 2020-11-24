@@ -1,6 +1,13 @@
 :root {
-  --singledata-title-bcg-color: gray;
-  --singledata-data-bcg-color: lightgray;
+  --olive: #a3bcb6;
+  --green-leaf: #39603d;
+  --brown-grey: #3c403d;
+  --tanly: #daded4;
+  --white: #ffffff;
+  --singledata-title-bcg-color: var(--green-leaf);
+  --singledata-data-bcg-color: var(--white);
+  --btn-color: var(--brown-grey);
+  --btn-bcg-color: var(--white);
 }
 
 *,
@@ -22,4 +29,38 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+a {
+  color: inherit;
+  font-style: italic;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.8s ease-out;
+}
+
+a:hover,
+a:focus {
+  outline: none;
+  border: none;
+  opacity: 0.6;
+}
+
+button {
+  padding: 3px 8px;
+  color: var(--btn-color);
+  background: var(--btn-bcg-color);
+  border-radius: 16px;
+  border: 2px solid var(--btn-color);
+  transition: all 0.8s ease-in;
+  cursor: pointer;
+}
+
+button:hover,
+button:focus,
+button:active {
+  outline: none;
+  color: var(--btn-bcg-color);
+  background: var(--btn-color);
+  border: 2px solid var(--btn-bcg-color);
 }
