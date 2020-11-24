@@ -18,7 +18,7 @@ function Data({ isLoading, data = {}, keyPrefix = '', keySuffix = '', title }) {
 
     if (formatAsDate(propertyKey)) dataType = 'date';
 
-    if (isLoading) return <SingleDataSkeleton key={key} _key={key} />;
+    if (isLoading) return <SingleDataSkeleton key={key} title={title} />;
 
     return (
       <SingleData

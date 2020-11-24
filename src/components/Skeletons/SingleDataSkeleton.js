@@ -1,10 +1,10 @@
 import React from 'react';
 import './SingleDataSkeleton.css';
 
-function SingleDataSkeleton() {
+function SingleDataSkeleton({ title }) {
   return (
     <p className="SingleDataSkeleton">
-      <span className="title">key</span>
+      <span className="title">{title}</span>
       <span className="data">value</span>
     </p>
   );
