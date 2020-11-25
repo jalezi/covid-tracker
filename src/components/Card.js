@@ -28,7 +28,7 @@ function Card({ get = 'world', title = 'title', show = false, labelFor }) {
   const url = URL[urlKey];
 
   const handleExpand1 = () => {
-    setExpand2(prev => !prev);
+    setExpand1(prev => !prev);
     if (expand2) setExpand2(false);
     if (expand3) setExpand3(false);
   };
