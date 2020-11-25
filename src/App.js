@@ -31,8 +31,8 @@ function App() {
     <div className="App">
       <Header />
       <main ref={ourRef}>
-        <Card title="global"></Card>
-        <Card title="world2"></Card>
+        <Card get="world" title="global"></Card>
+        <Card get="continents" title="continents"></Card>
       </main>
       <Footer />
       <div id="top-of-site-pixel-anchor"></div>

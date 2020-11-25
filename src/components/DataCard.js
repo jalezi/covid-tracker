@@ -1,23 +1,11 @@
 import React, { useState } from 'react';
-import './World.css';
+import './DataCard.css';
 import Data from './Data';
 import useFetch from '../hooks/useFetch';
 import { makeDataObjectFrom } from '../data';
 
-function World({ url, params, title, keyPrefix }) {
-  const {
-    data,
-    isLoading,
-    hasError,
-    errorMessage,
-    updateUrl,
-    updateParams,
-    refetch,
-  } = useFetch(url, params);
-
+function OneCard({ isLoading, data, keyPrefix, keySuffixPrepend }) {
   const [expand, setExpand] = useState(false);
-
-  if (hasError) return <div>{errorMessage}</div>;
 
   let basicData = makeDataObjectFrom.makeBasicData({});
   let perMillionData = makeDataObjectFrom.makePerMillionData({});
@@ -36,18 +24,13 @@ function World({ url, params, title, keyPrefix }) {
   };
 
   return (
-    <article className="World">
-      <header>
-        <h3 className="article-title">{title}</h3>
-        <button onClick={refetch}>refresh</button>
-      </header>
-
+    <>
       <Data
         isLoading={isLoading}
         data={basicData.dataObject}
         title="basic"
         keyPrefix={keyPrefix}
-        keySuffix={'world-basic'}
+        keySuffix={`${keySuffixPrepend}-basic`}
       />
       <footer>
         <button onClick={handleExpandClick}>More</button>
@@ -59,19 +42,48 @@ function World({ url, params, title, keyPrefix }) {
             data={perMillionData.dataObject}
             title="per million"
             keyPrefix={keyPrefix}
-            keySuffix="world-per-million"
+            keySuffix={`${keySuffixPrepend}-per-million`}
           />
           <Data
             isLoading={isLoading}
             data={perPersonData.dataObject}
             title="per people"
             keyPrefix={keyPrefix}
-            keySuffix="world-per-people"
+            keySuffix={`${keySuffixPrepend}-per-people`}
           />
         </>
       ) : null}
+    </>
+  );
+}
+
+function DataCard({ url, params, title, keyPrefix }) {
+  const {
+    data,
+    isLoading,
+    hasError,
+    errorMessage,
+    updateUrl,
+    updateParams,
+    refetch,
+  } = useFetch(url, params);
+
+  if (hasError) return <div>{errorMessage}</div>;
+
+  return (
+    <article className="DataCard">
+      <header>
+        <h3 className="article-title">{title}</h3>
+        <button onClick={refetch}>refresh</button>
+      </header>
+      <OneCard
+        data={data}
+        isLoading={isLoading}
+        keyPrefix={keyPrefix}
+        keySuffixPrepend={title}
+      />
     </article>
   );
 }
 
-export default World;
+export default DataCard;

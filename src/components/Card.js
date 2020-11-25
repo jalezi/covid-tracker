@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Card.css';
-import World from './World';
+import DataCard from './DataCard';
 import { URL } from '../utils';
 import { PATHS } from './../data/index';
 
@@ -38,13 +38,13 @@ function Card({ get = 'world', title = 'title' }) {
       <header>
         <h2 className="card-title">{title}</h2>
       </header>
-      <World url={url} title="today" keyPrefix="today" />
+      <DataCard url={url} title="today" keyPrefix="today" />
       <div className="buttons">
         <button onClick={handleExpand1}>yesterday</button>
         <button onClick={handleExpand2}>two days ago</button>
       </div>
       {expand1 ? (
-        <World
+        <DataCard
           url={url}
           params={yesterdayParams}
           title="yesterday"
@@ -52,7 +52,7 @@ function Card({ get = 'world', title = 'title' }) {
         />
       ) : null}
       {expand2 ? (
-        <World
+        <DataCard
           url={url}
           params={twoDaysAgoParams}
           title="two days ago"
