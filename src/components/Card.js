@@ -14,9 +14,11 @@ const { yesterdayParams } = QUERY_PARAMS;
 const { twoDaysAgoParams } = QUERY_PARAMS;
 
 function Card({ get = 'world', title = 'title' }) {
-  const isNotValidPAth = !PATHS.includes(get);
-  if (isNotValidPAth)
+  const isNotValidPath = !PATHS.includes(get);
+  if (isNotValidPath)
     throw new Error(`prop <get> should be one of: ${PATHS.toString()}`);
+
+  const isMultiCard = ['continents'].includes(get);
 
   const [expand1, setExpand1] = useState(false);
   const [expand2, setExpand2] = useState(false);
@@ -38,7 +40,7 @@ function Card({ get = 'world', title = 'title' }) {
       <header>
         <h2 className="card-title">{title}</h2>
       </header>
-      <DataCard url={url} title="today" keyPrefix="today" />
+      <DataCard url={url} title="today" keyPrefix="today" multi={isMultiCard} />
       <div className="buttons">
         <button onClick={handleExpand1}>yesterday</button>
         <button onClick={handleExpand2}>two days ago</button>
@@ -49,6 +51,7 @@ function Card({ get = 'world', title = 'title' }) {
           params={yesterdayParams}
           title="yesterday"
           keyPrefix="yesterday"
+          multi={isMultiCard}
         />
       ) : null}
       {expand2 ? (
@@ -57,6 +60,7 @@ function Card({ get = 'world', title = 'title' }) {
           params={twoDaysAgoParams}
           title="two days ago"
           keyPrefix="two-days-ago"
+          multi={isMultiCard}
         />
       ) : null}
     </section>

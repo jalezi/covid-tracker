@@ -11,7 +11,12 @@
   flex-grow: 1;
 }
 
+/* TODO decide section bottom margin */
 .App > main > section:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+.App > main > section:last-child {
   margin-bottom: 8px;
 }
 

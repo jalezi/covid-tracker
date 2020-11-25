@@ -9,9 +9,9 @@
   justify-content: space-around;
   align-items: center;
 }
-/* .DataCard > footer {
+.DataCard > footer {
   padding: 8px 0;
   display: flex;
   justify-content: space-around;
   align-items: center;
-} */
+}
