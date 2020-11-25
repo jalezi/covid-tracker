@@ -2,18 +2,27 @@ import React, { useState } from 'react';
 import './Card.css';
 import World from './World';
 import { URL } from '../utils';
+import { PATHS } from './../data/index';
 
-const yesterdayParams = {
-  yesterday: true,
+const QUERY_PARAMS = {
+  yesterday: { yesterday: true },
+  twoDaysAgo: { twoDaysAgo: true },
 };
 
-const twoDaysAgoParams = {
-  twoDaysAgo: true,
-};
+const { yesterdayParams } = QUERY_PARAMS;
 
-function Card({ title = 'title' }) {
+const { twoDaysAgoParams } = QUERY_PARAMS;
+
+function Card({ get = 'world', title = 'title' }) {
+  const isNotValidPAth = !PATHS.includes(get);
+  if (isNotValidPAth)
+    throw new Error(`prop <get> should be one of: ${PATHS.toString()}`);
+
   const [expand1, setExpand1] = useState(false);
   const [expand2, setExpand2] = useState(false);
+
+  const urlKey = `${get.toUpperCase()}_URL`;
+  const url = URL[urlKey];
 
   const handleExpand1 = () => {
     setExpand1(prev => !prev);
@@ -29,14 +38,14 @@ function Card({ title = 'title' }) {
       <header>
         <h2 className="card-title">{title}</h2>
       </header>
-      <World url={URL.WORLD_ALL_URL} title="today" keyPrefix="today" />
+      <World url={url} title="today" keyPrefix="today" />
       <div className="buttons">
         <button onClick={handleExpand1}>yesterday</button>
         <button onClick={handleExpand2}>two days ago</button>
       </div>
       {expand1 ? (
         <World
-          url={URL.WORLD_ALL_URL}
+          url={url}
           params={yesterdayParams}
           title="yesterday"
           keyPrefix="yesterday"
@@ -44,7 +53,7 @@ function Card({ title = 'title' }) {
       ) : null}
       {expand2 ? (
         <World
-          url={URL.WORLD_ALL_URL}
+          url={url}
           params={twoDaysAgoParams}
           title="two days ago"
           keyPrefix="two-days-ago"

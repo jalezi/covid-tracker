@@ -19,14 +19,14 @@ function World({ url, params, title, keyPrefix }) {
 
   if (hasError) return <div>{errorMessage}</div>;
 
-  let basicData = worldDataObject.makeBasicData({});
-  let perMillionData = worldDataObject.makePerMillionData({});
-  let perPersonData = worldDataObject.makePerPersonData({});
+  let basicData = makeDataObjectFrom.makeBasicData({});
+  let perMillionData = makeDataObjectFrom.makePerMillionData({});
+  let perPersonData = makeDataObjectFrom.makePerPersonData({});
 
   if (!isLoading) {
-    basicData = worldDataObject.makeBasicData(data);
-    perMillionData = worldDataObject.makePerMillionData(data);
-    perPersonData = worldDataObject.makePerPersonData(data);
+    basicData = makeDataObjectFrom.makeBasicData(data);
+    perMillionData = makeDataObjectFrom.makePerMillionData(data);
+    perPersonData = makeDataObjectFrom.makePerPersonData(data);
   }
 
   const handleExpandClick = event => {
