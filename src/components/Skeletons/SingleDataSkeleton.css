@@ -1,0 +1,34 @@
+.SingleDataSkeleton {
+  margin: 5px 5px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 2px solid var(--brown-grey);
+  boreder-radius: 16px;
+}
+.SingleDataSkeleton span {
+  padding: 3px 5px;
+  font-size: 0.8em;
+}
+
+.SingleDataSkeleton .title {
+  color: var(--singledata-data-bcg-color);
+  background-color: var(--singledata-title-bcg-color);
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.SingleDataSkeleton .data {
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  color: transparent;
+  animation: bcg-anim 2s ease-in-out infinite alternate;
+}
+
+@keyframes bcg-anim {
+  0% {
+    background-color: var(--singledata-data-bcg-color);
+  }
+  100% {
+    background-color: var(--singledata-title-bcg-color);
+  }
+}

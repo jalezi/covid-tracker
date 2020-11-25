@@ -1,0 +1,22 @@
+.MultiCard {
+  color: var(--white);
+  background-color: var(--brown-grey);
+}
+
+.MultiCard > .article-header {
+  padding: 8px 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.MultiCard > .article-header > .article-title {
+  text-transform: uppercase;
+}
+
+.MultiCard > footer {
+  padding: 8px 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
