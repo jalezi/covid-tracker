@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Card.css';
 import DataCard from './DataCard';
 import { URL } from '../utils';
 import { PATHS } from './../data/index';
-import { isNull } from '../utils/utilities';
 
 const QUERY_PARAMS = {
   yesterday: { yesterday: true },
