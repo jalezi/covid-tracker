@@ -13,3 +13,11 @@
 .Card > header > .card-title {
   text-transform: uppercase;
 }
+
+.Card .buttons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: var(--olive);
+  padding: 8px 0;
+}
