@@ -1,10 +1,12 @@
 .App {
   font-size: 0.85rem;
+  min-height: 100vh;
 }
 
 .App > main {
   display: flex;
   flex-wrap: wrap;
+  min-height: 100%;
 }
 
 .App > main > section {
@@ -17,7 +19,7 @@
 }
 
 .App > main > section:last-child {
-  margin-bottom: 8px;
+  margin-bottom: 2.1em;
 }
 
 .switch input {
