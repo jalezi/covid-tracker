@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './World.css';
 import Data from './Data';
 import useFetch from '../hooks/useFetch';
-import { worldDataObject } from '../utils';
+import { makeDataObjectFrom } from '../data';
 
 function World({ url, params, title, keyPrefix }) {
   const {

@@ -3,4 +3,4 @@ export const { URL, PATH } = URL_PATH;
 
 export { default as makeDataObject } from './makeDataObject';
 export { default as utilities } from './utilities';
-export { default as worldDataObject } from '../data/worldDataObject';
+// export { default as makeDataObjectFrom } from '../data/makeDataObjectFrom';
