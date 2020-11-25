@@ -1,5 +1,5 @@
-import makeDataObject from './makeDataObject';
-import { isNull } from './utilities';
+import makeDataObject from '../utils/makeDataObject';
+import { isNull } from '../utils/utilities';
 
 function makeBasicData(data) {
   if (isNull(data)) return null;
