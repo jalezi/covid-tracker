@@ -74,7 +74,6 @@ function App() {
         ></Card>
       </main>
       <Footer />
-      <div id="top-of-site-pixel-anchor"></div>
     </div>
   );
 }

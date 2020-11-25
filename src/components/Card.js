@@ -19,34 +19,54 @@ function Card({ get = 'world', title = 'title', show = false, labelFor }) {
   if (isNotValidPath)
     throw new Error(`prop <get> should be one of: ${PATHS.toString()}`);
 
-  const [expand1, setExpand1] = useState(false);
+  const [expand1, setExpand1] = useState(true);
   const [expand2, setExpand2] = useState(false);
+  const [expand3, setExpand3] = useState(false);
 
   const isMultiCard = ['continents'].includes(get);
   const urlKey = `${get.toUpperCase()}_URL`;
   const url = URL[urlKey];
 
   const handleExpand1 = () => {
-    setExpand1(prev => !prev);
+    setExpand2(prev => !prev);
     if (expand2) setExpand2(false);
+    if (expand3) setExpand3(false);
   };
   const handleExpand2 = () => {
     setExpand2(prev => !prev);
     if (expand1) setExpand1(false);
+    if (expand3) setExpand3(false);
+  };
+  const handleExpand3 = () => {
+    setExpand3(prev => !prev);
+    if (expand1) setExpand1(false);
+    if (expand2) setExpand2(false);
   };
 
   const Today = (
-    <DataCard url={url} title="today" keyPrefix="today" multi={isMultiCard} />
+    <>
+      <DataCard url={url} title="today" keyPrefix="today" multi={isMultiCard} />
+      <div className="buttons">
+        <button onClick={handleExpand2}>yesterday</button>
+        <button onClick={handleExpand3}>two days ago</button>
+      </div>
+    </>
   );
 
   const Yesterday = (
-    <DataCard
-      url={url}
-      params={yesterdayParams}
-      title="yesterday"
-      keyPrefix="yesterday"
-      multi={isMultiCard}
-    />
+    <>
+      <DataCard
+        url={url}
+        params={yesterdayParams}
+        title="yesterday"
+        keyPrefix="yesterday"
+        multi={isMultiCard}
+      />
+      <div className="buttons">
+        <button onClick={handleExpand1}>today</button>
+        <button onClick={handleExpand3}>two days ago</button>
+      </div>
+    </>
   );
 
   const TwoDaysAgo = (
@@ -59,8 +79,8 @@ function Card({ get = 'world', title = 'title', show = false, labelFor }) {
         multi={isMultiCard}
       />
       <div className="buttons">
-        <button onClick={handleExpand1}>yesterday</button>
-        <button onClick={handleExpand2}>two days ago</button>
+        <button onClick={handleExpand1}>today</button>
+        <button onClick={handleExpand2}>yesterday</button>
       </div>
     </>
   );
@@ -72,9 +92,9 @@ function Card({ get = 'world', title = 'title', show = false, labelFor }) {
           <h2 className="card-title">{title}</h2>
         </label>
       </header>
-      {show ? Today : null}
-      {expand1 ? Yesterday : null}
-      {expand2 ? TwoDaysAgo : null}
+      {show && expand1 ? Today : null}
+      {show && expand2 ? Yesterday : null}
+      {show && expand3 ? TwoDaysAgo : null}
     </section>
   );
 }
