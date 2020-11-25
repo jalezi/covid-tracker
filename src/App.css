@@ -20,6 +20,10 @@
   margin-bottom: 8px;
 }
 
+.switch input {
+  display: none;
+}
+
 @media only screen and (min-width: 375px) {
   .App {
     font-size: 1rem;

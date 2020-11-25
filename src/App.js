@@ -2,9 +2,11 @@ import './App.css';
 import Card from './components/Card';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 
 function App() {
+  const [state, setState] = useState({ radio1: false, radio2: false });
+
   const ourRef = useRef(null);
 
   useLayoutEffect(() => {
@@ -27,12 +29,49 @@ function App() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  const onChange = event => {
+    const id = event.target.id;
+    setState(prev => {
+      const newState = { radio1: false, radio2: false };
+      newState[id] = event.target.checked;
+      const inputs = [...document.querySelectorAll('input')];
+      inputs.forEach(input => {
+        input.checked = newState[input.id];
+      });
+      return { ...prev, ...newState };
+    });
+  };
+
   return (
     <div className="App">
       <Header />
       <main ref={ourRef}>
-        <Card get="world" title="global"></Card>
-        <Card get="continents" title="continents"></Card>
+        <div className="switch">
+          <input
+            id="radio1"
+            name="radio1"
+            type="checkbox"
+            onChange={onChange}
+          />
+          <input
+            id="radio2"
+            name="radio2"
+            type="checkbox"
+            onChange={onChange}
+          />
+        </div>
+        <Card
+          get="world"
+          title="global"
+          labelFor="radio1"
+          show={state.radio1}
+        ></Card>
+        <Card
+          get="continents"
+          title="continents"
+          labelFor="radio2"
+          show={state.radio2}
+        ></Card>
       </main>
       <Footer />
       <div id="top-of-site-pixel-anchor"></div>

@@ -10,7 +10,11 @@
   background-color: var(--brown-grey);
 }
 
-.Card > header > .card-title {
+.Card > header > label {
+  cursor: pointer;
+}
+
+.Card > header > label > .card-title {
   text-transform: uppercase;
 }
 

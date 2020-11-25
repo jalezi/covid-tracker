@@ -9,6 +9,11 @@
   justify-content: space-around;
   align-items: center;
 }
+
+.MultiCard > .article-header > .article-title {
+  text-transform: uppercase;
+}
+
 .MultiCard > footer {
   padding: 8px 0;
   display: flex;
