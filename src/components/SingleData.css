@@ -1,0 +1,25 @@
+.SingleData {
+  margin: 5px 5px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 2px solid var(--brown-grey);
+  boreder-radius: 16px;
+}
+.SingleData span {
+  padding: 3px 5px;
+  font-size: 0.8em;
+}
+
+.SingleData > .title {
+  color: var(--singledata-data-bcg-color);
+  background-color: var(--singledata-title-bcg-color);
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.SingleData > .data {
+  color: var(--singledata-title-bcg-color);
+  background-color: var(--singledata-data-bcg-color);
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}

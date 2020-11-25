@@ -1,0 +1,17 @@
+.DataCard {
+  color: var(--white);
+  background-color: var(--brown-grey);
+}
+
+.DataCard > .article-header {
+  padding: 8px 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.DataCard > footer {
+  padding: 8px 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}

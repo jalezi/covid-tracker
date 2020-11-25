@@ -1,0 +1,27 @@
+.Card {
+  background-color: var(--white);
+  min-width: 100%;
+}
+
+.Card > header {
+  padding: 8px 0;
+  text-align: center;
+  color: var(--white);
+  background-color: var(--brown-grey);
+}
+
+.Card > header > label {
+  cursor: pointer;
+}
+
+.Card > header > label > .card-title {
+  text-transform: uppercase;
+}
+
+.Card .buttons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: var(--olive);
+  padding: 8px 0;
+}
