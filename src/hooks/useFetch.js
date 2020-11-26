@@ -38,8 +38,8 @@ const useFetch = (initialUrl, initialParams = {}, skip = false) => {
         setIsLoading(false);
       }
     };
-    // TODO remove setTimeout after no longer needed
-    setTimeout(() => fetchData(), 500);
+
+    fetchData();
   }, [url, params, refetchIndex, queryString, skip]);
 
   return {
