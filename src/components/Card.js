@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import './Card.css';
 import DataCard from './DataCard';
 import { URL } from '../utils';
-import { PATHS } from './../data/index';
+import { IMPLEMENTED_API_PATHS } from './../data';
+import { isNull } from '../utils/utilities';
 
 const QUERY_PARAMS = {
   yesterday: { yesterday: true },
@@ -13,10 +14,18 @@ const { yesterdayParams } = QUERY_PARAMS;
 
 const { twoDaysAgoParams } = QUERY_PARAMS;
 
-function Card({ get = 'world', title = 'title', show = false, labelFor }) {
-  const isNotValidPath = !PATHS.includes(get);
+function Card({
+  get = 'world',
+  country = null,
+  title = 'title',
+  show = false,
+  labelFor,
+}) {
+  const isNotValidPath = !IMPLEMENTED_API_PATHS.includes(get);
   if (isNotValidPath)
-    throw new Error(`prop <get> should be one of: ${PATHS.toString()}`);
+    throw new Error(
+      `prop <get> should be one of: ${IMPLEMENTED_API_PATHS.toString()}`
+    );
 
   const [expand1, setExpand1] = useState(true);
   const [expand2, setExpand2] = useState(false);
@@ -24,7 +33,11 @@ function Card({ get = 'world', title = 'title', show = false, labelFor }) {
 
   const isMultiCard = ['continents'].includes(get);
   const urlKey = `${get.toUpperCase()}_URL`;
-  const url = URL[urlKey];
+
+  const isCountry = get === 'countries' && !isNull(country);
+  const url = isCountry ? `${URL[urlKey]}/${country}` : URL[urlKey];
+
+  if (url === undefined) throw new Error('url is undefined');
 
   const handleExpand1 = () => {
     setExpand1(prev => !prev);

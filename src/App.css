@@ -26,6 +26,12 @@
   margin-bottom: 8px;
 }
 
+.App > main > .Country {
+  width: 100%;
+  margin: 0 auto;
+  align-self: stretch;
+}
+
 .App > main > section:last-child {
   margin-bottom: 2.1em;
 }
@@ -60,6 +66,12 @@
     flex-grow: 0;
   }
 
+  .App > main > .Country {
+    max-width: 80%;
+    align-self: stretch;
+    height: 100%;
+    margin: 16px 0;
+  }
 
   .App > main > section:not(:last-child) {
     margin-bottom: 2.1em;

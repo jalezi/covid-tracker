@@ -1,0 +1,24 @@
+.Country {
+  height: 100%;
+  margin: 16px 0;
+  background: var(--brown-grey);
+  padding: 16px;
+}
+
+.Country > header {
+  padding: 8px 0;
+  text-align: center;
+  color: var(--white);
+  background-color: var(--brown-grey);
+}
+
+.Country > .country-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.country-select {
+  color: var(--white);
+}

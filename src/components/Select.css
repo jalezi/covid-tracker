@@ -1,0 +1,7 @@
+.Select {
+  padding: 8px 0;
+  text-align: right;
+}
+.Select > label {
+  padding: 4px 8px;
+}
