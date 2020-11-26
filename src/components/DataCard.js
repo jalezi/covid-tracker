@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './DataCard.css';
 import useFetch from '../hooks/useFetch';
 import OneCard from './OneCard';
