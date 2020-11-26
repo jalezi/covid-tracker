@@ -12,6 +12,10 @@
   background-color: var(--brown-grey);
 }
 
+.Country > header > h2 {
+  text-transform: uppercase;
+}
+
 .Country > .country-wrapper {
   display: flex;
   justify-content: center;
