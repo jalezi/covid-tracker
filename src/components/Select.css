@@ -3,5 +3,11 @@
   text-align: right;
 }
 .Select > label {
-  padding: 4px 8px;
+  padding: 4px 4px;
+}
+
+@media only screen and (min-width: 375px) {
+  .Select > label {
+    padding: 4px 8px;
+  }
 }
