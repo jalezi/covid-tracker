@@ -25,7 +25,7 @@ function OneCard({ isLoading, data, keyPrefix, keySuffixPrepend }) {
     <>
       <Data
         isLoading={isLoading}
-        data={basicData.dataObject}
+        data={basicData?.dataObject}
         title="basic"
         keyPrefix={keyPrefix}
         keySuffix={`${keySuffixPrepend}-basic`}
@@ -37,14 +37,14 @@ function OneCard({ isLoading, data, keyPrefix, keySuffixPrepend }) {
         <>
           <Data
             isLoading={isLoading}
-            data={perMillionData.dataObject}
+            data={perMillionData?.dataObject}
             title="per million"
             keyPrefix={keyPrefix}
             keySuffix={`${keySuffixPrepend}-per-million`}
           />
           <Data
             isLoading={isLoading}
-            data={perPersonData.dataObject}
+            data={perPersonData?.dataObject}
             title="per people"
             keyPrefix={keyPrefix}
             keySuffix={`${keySuffixPrepend}-per-people`}
