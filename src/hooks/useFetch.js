@@ -39,8 +39,8 @@ const useFetch = (initialUrl, initialParams = {}, skip = false) => {
       }
     };
 
-    // fetchData();
-    setTimeout(() => fetchData(), 3000);
+    fetchData();
+    // setTimeout(() => fetchData(), 3000);
   }, [url, params, refetchIndex, queryString, skip]);
 
   return {
