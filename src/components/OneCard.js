@@ -37,16 +37,6 @@ function OneCard({ isLoading, data, keyPrefix, keySuffixPrepend }) {
     }
   }, [isLoading, data]);
 
-  // let basicData = makeDataObjectFrom.makeBasicData({});
-  // let perMillionData = makeDataObjectFrom.makePerMillionData({});
-  // let perPersonData = makeDataObjectFrom.makePerPersonData({});
-
-  // if (!isLoading) {
-  //   basicData = makeDataObjectFrom.makeBasicData(data);
-  //   perMillionData = makeDataObjectFrom.makePerMillionData(data);
-  //   perPersonData = makeDataObjectFrom.makePerPersonData(data);
-  // }
-
   const handleExpandClick = event => {
     const button = event.target;
     setExpand(prev => !prev);
