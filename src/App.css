@@ -21,19 +21,20 @@
   align-self: flex-start;
 }
 
-/* TODO decide section bottom margin */
-.App > main > section:not(:last-child) {
-  margin-bottom: 8px;
-}
-
 .App > main > .Country {
   width: 100%;
   margin: 0 auto;
+  margin-bottom: 8px;
   align-self: stretch;
 }
 
-.App > main > section:last-child {
-  margin-bottom: 2.1em;
+/* TODO decide section bottom margin */
+.App > main > .Card {
+  margin-bottom: 8px;
+}
+
+.App > main > .Card:last-child {
+  margin-bottom: 4.5em;
 }
 
 .switch {
@@ -52,28 +53,22 @@
 }
 
 @media only screen and (min-width: 640px) {
-  .App {
-  }
-
   .App > main {
     justify-content: space-evenly;
     flex-wrap: wrap;
     height: 100%;
   }
 
-  .App > main > section {
-    margin-bottom: 2.1em;
+  .App > main > .Card {
+    margin-bottom: 4.5em;
     flex-grow: 0;
   }
 
   .App > main > .Country {
+    flex-grow: 0;
     max-width: 80%;
     align-self: stretch;
     height: 100%;
     margin: 16px 0;
-  }
-
-  .App > main > section:not(:last-child) {
-    margin-bottom: 2.1em;
   }
 }

@@ -3,8 +3,13 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   border: 2px solid var(--brown-grey);
-  boreder-radius: 16px;
+  border-radius: 16px;
 }
+
+.SingleData:last-child {
+  margin-bottom: 0;
+}
+
 .SingleData span {
   padding: 3px 5px;
   font-size: 0.8em;
