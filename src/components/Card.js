@@ -10,9 +10,9 @@ const QUERY_PARAMS = {
   twoDaysAgo: { twoDaysAgo: true },
 };
 
-const { yesterdayParams } = QUERY_PARAMS;
+const { yesterday: yesterdayParams } = QUERY_PARAMS;
 
-const { twoDaysAgoParams } = QUERY_PARAMS;
+const { twoDaysAgo: twoDaysAgoParams } = QUERY_PARAMS;
 
 function Card({
   get = 'world',
