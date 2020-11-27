@@ -107,10 +107,6 @@ function Card({
     </>
   );
 
-  console.log(yesterdayParams);
-
-  console.log({ show, expand1, expand2, expand3 });
-
   return (
     <section className="Card">
       <header>
