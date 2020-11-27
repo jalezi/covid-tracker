@@ -3,7 +3,13 @@ import Data from './Data';
 import { makeDataObjectFrom } from '../data';
 import { isNull } from '../utils/utilities';
 
-function OneCard({ isLoading, data, keyPrefix, keySuffixPrepend }) {
+function OneCard({
+  isLoading,
+  data,
+  keyPrefix,
+  keySuffixPrepend,
+  isWorld = false,
+}) {
   const [myData, setMyData] = useState({
     basicData: {},
     perMillionData: {},
@@ -13,7 +19,7 @@ function OneCard({ isLoading, data, keyPrefix, keySuffixPrepend }) {
 
   useEffect(() => {
     if (isLoading || isNull(data)) {
-      let basicData = makeDataObjectFrom.makeBasicData({});
+      let basicData = makeDataObjectFrom.makeBasicData({}, isWorld);
       let perMillionData = makeDataObjectFrom.makePerMillionData({});
       let perPersonData = makeDataObjectFrom.makePerPersonData({});
       setMyData(prev => ({
@@ -25,7 +31,7 @@ function OneCard({ isLoading, data, keyPrefix, keySuffixPrepend }) {
     }
 
     if (!isLoading && !isNull(data)) {
-      let basicData = makeDataObjectFrom.makeBasicData(data);
+      let basicData = makeDataObjectFrom.makeBasicData(data, isWorld);
       let perMillionData = makeDataObjectFrom.makePerMillionData(data);
       let perPersonData = makeDataObjectFrom.makePerPersonData(data);
       setMyData(prev => ({
@@ -35,7 +41,7 @@ function OneCard({ isLoading, data, keyPrefix, keySuffixPrepend }) {
         perPersonData,
       }));
     }
-  }, [isLoading, data]);
+  }, [isLoading, data, isWorld]);
 
   const handleExpandClick = event => {
     const button = event.target;
@@ -51,6 +57,7 @@ function OneCard({ isLoading, data, keyPrefix, keySuffixPrepend }) {
         title="basic"
         keyPrefix={keyPrefix}
         keySuffix={`${keySuffixPrepend}-basic`}
+        isWorld={isWorld}
       />
       <footer>
         <button onClick={handleExpandClick}>More</button>

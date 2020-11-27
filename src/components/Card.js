@@ -31,6 +31,8 @@ function Card({
   const [expand2, setExpand2] = useState(false);
   const [expand3, setExpand3] = useState(false);
 
+  const isWorld = get === 'world';
+
   const isMultiCard = ['continents'].includes(get);
   const urlKey = `${get.toUpperCase()}_URL`;
 
@@ -57,7 +59,13 @@ function Card({
 
   const Today = (
     <>
-      <DataCard url={url} title="today" keyPrefix="today" multi={isMultiCard} />
+      <DataCard
+        url={url}
+        title="today"
+        keyPrefix="today"
+        multi={isMultiCard}
+        isWorld={isWorld}
+      />
       <div className="buttons">
         <button onClick={handleExpand2}>yesterday</button>
         <button onClick={handleExpand3}>two days ago</button>
@@ -73,6 +81,7 @@ function Card({
         title="yesterday"
         keyPrefix="yesterday"
         multi={isMultiCard}
+        isWorld={isWorld}
       />
       <div className="buttons">
         <button onClick={handleExpand1}>today</button>
@@ -89,6 +98,7 @@ function Card({
         title="two days ago"
         keyPrefix="two-days-ago"
         multi={isMultiCard}
+        isWorld={isWorld}
       />
       <div className="buttons">
         <button onClick={handleExpand1}>today</button>

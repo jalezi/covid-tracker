@@ -1,7 +1,7 @@
 import makeDataObject from '../utils/makeDataObject';
 import { isNull } from '../utils/utilities';
 
-function makeBasicData(data) {
+function makeBasicData(data, isWorld = false) {
   if (isNull(data)) return null;
 
   const newData = {
@@ -15,8 +15,12 @@ function makeBasicData(data) {
     critical: data.critical,
     tests: data.tests,
     population: data.population,
-    affectedCountries: data.affectedCountries,
   };
+
+  if (isWorld) {
+    newData['affectedCountries'] = data.affectedCountries;
+  }
+
   return makeDataObject(newData);
 }
 

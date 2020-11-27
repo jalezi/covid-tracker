@@ -4,7 +4,14 @@ import useFetch from '../hooks/useFetch';
 import OneCard from './OneCard';
 import MultiCard from './MultiCard';
 
-function DataCard({ url, params, title, keyPrefix, multi = false }) {
+function DataCard({
+  url,
+  params,
+  title,
+  keyPrefix,
+  multi = false,
+  isWorld = false,
+}) {
   const { data, isLoading, hasError, errorMessage, refetch } = useFetch(
     url,
     params
@@ -28,6 +35,7 @@ function DataCard({ url, params, title, keyPrefix, multi = false }) {
       isLoading={isLoading}
       keyPrefix={keyPrefix}
       keySuffixPrepend={title}
+      isWorld={isWorld}
     />
   );
 
