@@ -10,7 +10,7 @@ function Header() {
     <header className="Header">
       <h1 className="header-title">Covid tracker</h1>
       <p>{todayRender}</p>
-      <div>
+      <div className="header-link">
         Data collected from{' '}
         <a
           href="https://disease.sh/docs/#/COVID-19"
@@ -19,7 +19,6 @@ function Header() {
         >
           NOVEL CoVID19 API
         </a>
-        .
       </div>
     </header>
   );

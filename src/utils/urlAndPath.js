@@ -12,17 +12,23 @@ const CONTINENTS_PATH = '/continents';
 
 const CONTINENTS_URL = COVID_URL + CONTINENTS_PATH;
 
+const COUNTRIES_PATH = '/countries';
+
+const COUNTRIES_URL = COVID_URL + COUNTRIES_PATH;
+
 export const URL = Object.freeze({
   BASE_URL,
   COVID_URL,
   WORLD_URL,
   CONTINENTS_URL,
+  COUNTRIES_URL,
 });
 
 export const PATH = Object.freeze({
   COVID_PATH,
   WORLD_PATH,
   CONTINENTS_PATH,
+  COUNTRIES_PATH,
 });
 
 export default Object.freeze({ URL, PATH });

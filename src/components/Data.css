@@ -3,6 +3,11 @@
   margin: 5px 0;
 }
 
+.Data:last-child {
+  margin-bottom: 0;
+  padding-bottom: 8px;
+}
+
 .Data > .data-title {
   text-align: center;
 }

@@ -6,7 +6,7 @@ function SingleData({ type = 'number', title, value = 0, locales = 'en-US' }) {
   let renderValue = value;
 
   if (type === 'date')
-    renderValue = utilities.formatDate.date_EN()(renderValue);
+    renderValue = utilities.formatDate.dateRelative_EN()(renderValue);
 
   if (type === 'number') renderValue = value.toLocaleString(locales);
 

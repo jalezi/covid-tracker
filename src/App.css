@@ -1,25 +1,45 @@
 .App {
   font-size: 0.85rem;
   min-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
 }
 
 .App > main {
+  flex-grow: 1;
   display: flex;
   flex-wrap: wrap;
   min-height: 100%;
+  background: var(--green-leaf);
 }
 
 .App > main > section {
   flex-grow: 1;
+  align-self: flex-start;
+}
+
+.App > main > .Country {
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 8px;
+  align-self: stretch;
 }
 
 /* TODO decide section bottom margin */
-.App > main > section:not(:last-child) {
+.App > main > .Card {
   margin-bottom: 8px;
 }
 
-.App > main > section:last-child {
-  margin-bottom: 2.1em;
+.App > main > .Card:last-child {
+  margin-bottom: 4.5em;
+}
+
+.switch {
+  position: absolute;
+  top: -500px;
 }
 
 .switch input {
@@ -29,5 +49,26 @@
 @media only screen and (min-width: 375px) {
   .App {
     font-size: 1rem;
+  }
+}
+
+@media only screen and (min-width: 640px) {
+  .App > main {
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    height: 100%;
+  }
+
+  .App > main > .Card {
+    margin-bottom: 4.5em;
+    flex-grow: 0;
+  }
+
+  .App > main > .Country {
+    flex-grow: 0;
+    max-width: 80%;
+    align-self: stretch;
+    height: 100%;
+    margin: 16px 0;
   }
 }

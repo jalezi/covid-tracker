@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import { format, formatRelative } from 'date-fns';
 import { sl } from 'date-fns/locale';
 
 export const isEmpty = x => {
@@ -39,17 +39,31 @@ export const hasOwnProperty = obj => key => obj.hasOwnProperty(key);
 
 export const isError = x => x instanceof Error;
 
-const formatToLocaleDateString = (options = {}) => (
+const formatToLocaleDateString = (options = {}, relative = false) => (
   formatStr = 'E, d. MMM yyyy h:mm aa'
 ) => dateAsText => {
   const date = new Date(dateAsText);
+
+  if (relative) {
+    const today = new Date();
+    return formatRelative(date, today, options);
+  }
+
   return format(date, formatStr, options);
 };
 
 const date_EN = formatToLocaleDateString();
 const date_SL = formatToLocaleDateString({ locale: sl });
 
-const formatDate = Object.freeze({ date_EN, date_SL });
+const dateRelative_EN = formatToLocaleDateString({}, true);
+const dateRelative_SL = formatToLocaleDateString({ locale: sl }, true);
+
+const formatDate = Object.freeze({
+  date_EN,
+  date_SL,
+  dateRelative_EN,
+  dateRelative_SL,
+});
 export default Object.freeze({
   isEmpty,
   isNull,

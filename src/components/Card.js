@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import './Card.css';
 import DataCard from './DataCard';
 import { URL } from '../utils';
-import { PATHS } from './../data/index';
+import { IMPLEMENTED_API_PATHS } from './../data';
+import { isNull } from '../utils/utilities';
 
 const QUERY_PARAMS = {
   yesterday: { yesterday: true },
@@ -13,18 +14,32 @@ const { yesterdayParams } = QUERY_PARAMS;
 
 const { twoDaysAgoParams } = QUERY_PARAMS;
 
-function Card({ get = 'world', title = 'title', show = false, labelFor }) {
-  const isNotValidPath = !PATHS.includes(get);
+function Card({
+  get = 'world',
+  country = null,
+  title = 'title',
+  show = false,
+  labelFor,
+}) {
+  const isNotValidPath = !IMPLEMENTED_API_PATHS.includes(get);
   if (isNotValidPath)
-    throw new Error(`prop <get> should be one of: ${PATHS.toString()}`);
+    throw new Error(
+      `prop <get> should be one of: ${IMPLEMENTED_API_PATHS.toString()}`
+    );
 
   const [expand1, setExpand1] = useState(true);
   const [expand2, setExpand2] = useState(false);
   const [expand3, setExpand3] = useState(false);
 
+  const isWorld = get === 'world';
+
   const isMultiCard = ['continents'].includes(get);
   const urlKey = `${get.toUpperCase()}_URL`;
-  const url = URL[urlKey];
+
+  const isCountry = get === 'countries' && !isNull(country);
+  const url = isCountry ? `${URL[urlKey]}/${country}` : URL[urlKey];
+
+  if (url === undefined) throw new Error('url is undefined');
 
   const handleExpand1 = () => {
     setExpand1(prev => !prev);
@@ -44,7 +59,13 @@ function Card({ get = 'world', title = 'title', show = false, labelFor }) {
 
   const Today = (
     <>
-      <DataCard url={url} title="today" keyPrefix="today" multi={isMultiCard} />
+      <DataCard
+        url={url}
+        title="today"
+        keyPrefix="today"
+        multi={isMultiCard}
+        isWorld={isWorld}
+      />
       <div className="buttons">
         <button onClick={handleExpand2}>yesterday</button>
         <button onClick={handleExpand3}>two days ago</button>
@@ -60,6 +81,7 @@ function Card({ get = 'world', title = 'title', show = false, labelFor }) {
         title="yesterday"
         keyPrefix="yesterday"
         multi={isMultiCard}
+        isWorld={isWorld}
       />
       <div className="buttons">
         <button onClick={handleExpand1}>today</button>
@@ -76,6 +98,7 @@ function Card({ get = 'world', title = 'title', show = false, labelFor }) {
         title="two days ago"
         keyPrefix="two-days-ago"
         multi={isMultiCard}
+        isWorld={isWorld}
       />
       <div className="buttons">
         <button onClick={handleExpand1}>today</button>

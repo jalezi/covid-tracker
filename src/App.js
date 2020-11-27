@@ -3,6 +3,7 @@ import Card from './components/Card';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { useLayoutEffect, useRef, useState } from 'react';
+import Country from './components/Country';
 
 function App() {
   const [state, setState] = useState({ radio1: false, radio2: false });
@@ -60,6 +61,9 @@ function App() {
             onChange={onChange}
           />
         </div>
+
+        <Country />
+
         <Card
           get="world"
           title="global"

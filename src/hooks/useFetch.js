@@ -6,7 +6,7 @@ const useFetch = (initialUrl, initialParams = {}, skip = false) => {
   const [url, updateUrl] = useState(initialUrl);
   const [params, updateParams] = useState(initialParams);
   const [data, setData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [refetchIndex, setRefetchIndex] = useState(0);
@@ -38,8 +38,9 @@ const useFetch = (initialUrl, initialParams = {}, skip = false) => {
         setIsLoading(false);
       }
     };
-    // TODO remove setTimeout after no longer needed
-    setTimeout(() => fetchData(), 500);
+
+    fetchData();
+    // setTimeout(() => fetchData(), 3000);
   }, [url, params, refetchIndex, queryString, skip]);
 
   return {
