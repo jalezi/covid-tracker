@@ -16,7 +16,7 @@ function Country() {
   const [selectedCountryIndex, setSelectedCountryIndex] = useState(0);
   const [country, setCountry] = useState(null);
 
-  const { data, isLoading, hasError, errorMessage, refetch } = useFetch(
+  const { data, isLoading, hasError, errorMessage } = useFetch(
     URL.CONTINENTS_URL
   );
 
@@ -45,7 +45,10 @@ function Country() {
 
   if (isLoading) <div>Loading...</div>;
 
-  if (hasError) <div>Somenthing went wrong!</div>;
+  if (hasError) {
+    console.error(errorMessage);
+    return <div>Somenthing went wrong!</div>;
+  }
 
   const onContinentChange = event => {
     const { value } = event.target;

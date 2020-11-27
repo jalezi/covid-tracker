@@ -10,7 +10,10 @@ function DataCard({ url, params, title, keyPrefix, multi = false }) {
     params
   );
 
-  if (hasError) return <div>{errorMessage}</div>;
+  if (hasError) {
+    console.error(errorMessage);
+    return <div>Somenthing went wrong!</div>;
+  }
 
   const component = multi ? (
     <MultiCard
