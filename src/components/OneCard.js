@@ -1,19 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Data from './Data';
 import { makeDataObjectFrom } from '../data';
+import { isNull } from '../utils/utilities';
 
 function OneCard({ isLoading, data, keyPrefix, keySuffixPrepend }) {
+  const [myData, setMyData] = useState({
+    basicData: {},
+    perMillionData: {},
+    perPersonData: {},
+  });
   const [expand, setExpand] = useState(false);
 
-  let basicData = makeDataObjectFrom.makeBasicData({});
-  let perMillionData = makeDataObjectFrom.makePerMillionData({});
-  let perPersonData = makeDataObjectFrom.makePerPersonData({});
+  useEffect(() => {
+    if (isLoading || isNull(data)) {
+      let basicData = makeDataObjectFrom.makeBasicData({});
+      let perMillionData = makeDataObjectFrom.makePerMillionData({});
+      let perPersonData = makeDataObjectFrom.makePerPersonData({});
+      setMyData(prev => ({
+        ...prev,
+        basicData,
+        perMillionData,
+        perPersonData,
+      }));
+    }
 
-  if (!isLoading) {
-    basicData = makeDataObjectFrom.makeBasicData(data);
-    perMillionData = makeDataObjectFrom.makePerMillionData(data);
-    perPersonData = makeDataObjectFrom.makePerPersonData(data);
-  }
+    if (!isLoading && !isNull(data)) {
+      let basicData = makeDataObjectFrom.makeBasicData(data);
+      let perMillionData = makeDataObjectFrom.makePerMillionData(data);
+      let perPersonData = makeDataObjectFrom.makePerPersonData(data);
+      setMyData(prev => ({
+        ...prev,
+        basicData,
+        perMillionData,
+        perPersonData,
+      }));
+    }
+  }, [isLoading, data]);
+
+  // let basicData = makeDataObjectFrom.makeBasicData({});
+  // let perMillionData = makeDataObjectFrom.makePerMillionData({});
+  // let perPersonData = makeDataObjectFrom.makePerPersonData({});
+
+  // if (!isLoading) {
+  //   basicData = makeDataObjectFrom.makeBasicData(data);
+  //   perMillionData = makeDataObjectFrom.makePerMillionData(data);
+  //   perPersonData = makeDataObjectFrom.makePerPersonData(data);
+  // }
 
   const handleExpandClick = event => {
     const button = event.target;
@@ -25,7 +57,7 @@ function OneCard({ isLoading, data, keyPrefix, keySuffixPrepend }) {
     <>
       <Data
         isLoading={isLoading}
-        data={basicData?.dataObject}
+        data={myData.basicData?.dataObject}
         title="basic"
         keyPrefix={keyPrefix}
         keySuffix={`${keySuffixPrepend}-basic`}
@@ -37,14 +69,14 @@ function OneCard({ isLoading, data, keyPrefix, keySuffixPrepend }) {
         <>
           <Data
             isLoading={isLoading}
-            data={perMillionData?.dataObject}
+            data={myData.perMillionData?.dataObject}
             title="per million"
             keyPrefix={keyPrefix}
             keySuffix={`${keySuffixPrepend}-per-million`}
           />
           <Data
             isLoading={isLoading}
-            data={perPersonData?.dataObject}
+            data={myData.perPersonData?.dataObject}
             title="per people"
             keyPrefix={keyPrefix}
             keySuffix={`${keySuffixPrepend}-per-people`}

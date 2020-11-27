@@ -18,7 +18,20 @@ function Data({ isLoading, data = {}, keyPrefix = '', keySuffix = '', title }) {
 
     if (formatAsDate(propertyKey)) dataType = 'date';
 
-    if (isLoading) return <SingleDataSkeleton key={key} title={title} />;
+    const isUndefined = typeof propertyValue === 'undefined';
+    const isNumber = typeof propertyValue === 'number';
+
+    if (isLoading) {
+      return <SingleDataSkeleton key={key} title={title} />;
+    }
+
+    if (!isLoading && isUndefined) {
+      return <SingleDataSkeleton key={key} title={title} />;
+    }
+
+    if (!isLoading && !isNumber) {
+      return null;
+    }
 
     return (
       <SingleData
