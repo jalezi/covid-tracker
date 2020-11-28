@@ -7,8 +7,9 @@ import useLocation from './../hooks/useLocation';
 import browserLocation from '../hooks/useLocation/';
 
 import { URL } from './../utils';
-import { isNull } from '../utils/utilities';
-import { isEmpty } from './../utils/utilities';
+import { isNull, isEmpty } from '../utils/utilities';
+
+import Select from './Select';
 import Card from './Card';
 
 const { REACT_APP_GOOGLE_MAPS_API_KEY } = process.env;
