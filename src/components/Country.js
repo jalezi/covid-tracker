@@ -19,7 +19,6 @@ const indexOf = country => continentCountries => {
 };
 
 const getContinentAndCountryIndex = (country, countries) => {
-  console.log('COUNTRY: ', country);
   const indexOfCountry = indexOf(country);
   const result = countries
     .map((item, index) => {
@@ -43,7 +42,7 @@ const fromLocationFindContinentAndCountryIndex = (
   return getContinentAndCountryIndex(locationCountry, countries);
 };
 
-const xy = location => {
+const locationBasedIndexes = location => {
   let locationCountry = null;
   let locationError = null;
   const { loading } = location;
@@ -96,7 +95,9 @@ function Country() {
   const location = useLocation(detector);
 
   useEffect(() => {
-    const [continentIndex, countryIndex] = xy(location)(countries);
+    const [continentIndex, countryIndex] = locationBasedIndexes(location)(
+      countries
+    );
     const canSelectByLocaton = continentIndex > -1 && countryIndex > -1;
     if (canSelectByLocaton) {
       const continentSelectElement = document.getElementById('continents');
