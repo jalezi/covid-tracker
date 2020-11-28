@@ -11,6 +11,7 @@ const useLocation = detector => {
     Promise.resolve(detector())
       .then(location => setState({ loading: false, location }))
       .catch(error => setState({ loading: false, error }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return state;
