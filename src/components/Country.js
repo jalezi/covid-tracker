@@ -25,6 +25,7 @@ function Country() {
     URL.CONTINENTS_URL
   );
 
+  // get all continents and countries
   useEffect(() => {
     const dataNotNull = !isNull(data);
     if (dataNotNull) {
@@ -36,12 +37,14 @@ function Country() {
     }
   }, [data]);
 
+  // get countries for selected continent
   useEffect(() => {
     const countriesNotEmpty = !isEmpty(countries);
     if (countriesNotEmpty)
       setContinentCountries(countries[selectedContinentIndex]);
   }, [countries, selectedContinentIndex]);
 
+  // get country from continent countries
   useEffect(() => {
     const continentCountriesNotEmpty = !isEmpty(continentCountries);
     if (continentCountriesNotEmpty)
