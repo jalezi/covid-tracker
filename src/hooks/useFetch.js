@@ -2,9 +2,15 @@
 
 import { useState, useEffect } from 'react';
 
-const useFetch = (initialUrl, initialParams = {}, skip = false) => {
+const useFetch = (
+  initialUrl,
+  initialParams = {},
+  initialOptions = {},
+  skip = false
+) => {
   const [url, updateUrl] = useState(initialUrl);
   const [params, updateParams] = useState(initialParams);
+  const [options, updateOptions] = useState(initialOptions);
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -23,7 +29,7 @@ const useFetch = (initialUrl, initialParams = {}, skip = false) => {
       if (skip) return;
       setIsLoading(true);
       try {
-        const response = await fetch(`${url}?${queryString}`);
+        const response = await fetch(`${url}?${queryString}`, options);
         const result = await response.json();
         if (response.ok) {
           setData(result);
@@ -41,7 +47,7 @@ const useFetch = (initialUrl, initialParams = {}, skip = false) => {
 
     fetchData();
     // setTimeout(() => fetchData(), 3000);
-  }, [url, params, refetchIndex, queryString, skip]);
+  }, [url, params, refetchIndex, queryString, options, skip]);
 
   return {
     data,
@@ -50,6 +56,7 @@ const useFetch = (initialUrl, initialParams = {}, skip = false) => {
     errorMessage,
     updateUrl,
     updateParams,
+    updateOptions,
     refetch,
   };
 };
