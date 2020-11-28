@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Country.css';
 
-import Select from './Select';
 import useFetch from './../hooks/useFetch';
 import useLocation from './../hooks/useLocation';
 import browserLocation from '../hooks/useLocation/';
