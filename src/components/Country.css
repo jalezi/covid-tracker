@@ -2,7 +2,7 @@
   height: 100%;
   margin: 16px 0;
   background: var(--brown-grey);
-  padding: 16px;
+  padding: 16px 0;
 }
 
 .Country > header {
