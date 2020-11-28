@@ -51,6 +51,7 @@ function Country() {
       setCountry(continentCountries[selectedCountryIndex]);
   }, [country, continentCountries, selectedCountryIndex]);
 
+  // TODO create skeleton
   if (isLoading) <div>Loading...</div>;
 
   if (hasError) {
