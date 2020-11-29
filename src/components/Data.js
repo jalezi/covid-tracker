@@ -2,6 +2,8 @@ import React from 'react';
 import './Data.css';
 import SingleData from './SingleData';
 import SingleDataSkeleton from './Skeletons/SingleDataSkeleton';
+import { utilities } from '../utils';
+
 const propertiesToFormatAsDate = ['updated'];
 
 function formatAsDate(key) {
@@ -11,7 +13,7 @@ function formatAsDate(key) {
 function Data({ isLoading, data = {}, keyPrefix = '', keySuffix = '', title }) {
   const component = Object.entries(data).map(item => {
     const propertyKey = item[0];
-    const title = propertyKey; // temporary
+    const title = utilities.fromCamelCase(propertyKey, ' ');
     const key = `${keyPrefix}-${title}-${keySuffix}`;
     let propertyValue = item[1];
     let dataType = 'number';

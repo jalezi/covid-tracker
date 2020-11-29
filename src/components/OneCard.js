@@ -9,11 +9,14 @@ function OneCard({
   keyPrefix,
   keySuffixPrepend,
   isWorld = false,
+  setFlag = () => {},
 }) {
+  console.log(data);
   const [myData, setMyData] = useState({
     basicData: {},
     perMillionData: {},
     perPersonData: {},
+    countryInfoData: {},
   });
   const [expand, setExpand] = useState(false);
 
@@ -22,11 +25,13 @@ function OneCard({
       let basicData = makeDataObjectFrom.makeBasicData({}, isWorld);
       let perMillionData = makeDataObjectFrom.makePerMillionData({});
       let perPersonData = makeDataObjectFrom.makePerPersonData({});
+      let countryInfoData = makeDataObjectFrom.makeCountryInfoData({});
       setMyData(prev => ({
         ...prev,
         basicData,
         perMillionData,
         perPersonData,
+        countryInfoData,
       }));
     }
 
@@ -34,14 +39,20 @@ function OneCard({
       let basicData = makeDataObjectFrom.makeBasicData(data, isWorld);
       let perMillionData = makeDataObjectFrom.makePerMillionData(data);
       let perPersonData = makeDataObjectFrom.makePerPersonData(data);
+      let countryInfoData = makeDataObjectFrom.makeCountryInfoData(data);
       setMyData(prev => ({
         ...prev,
         basicData,
         perMillionData,
         perPersonData,
+        countryInfoData,
       }));
     }
   }, [isLoading, data, isWorld]);
+
+  useEffect(() => {
+    setFlag(myData.countryInfoData);
+  });
 
   const handleExpandClick = event => {
     const button = event.target;

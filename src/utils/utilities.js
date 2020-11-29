@@ -64,6 +64,14 @@ const formatDate = Object.freeze({
   dateRelative_EN,
   dateRelative_SL,
 });
+
+// https://www.30secondsofcode.org/js/s/from-camel-case
+const fromCamelCase = (str, separator = '_') =>
+  str
+    .replace(/([a-z\d])([A-Z])/g, '$1' + separator + '$2')
+    .replace(/([A-Z]+)([A-Z][a-z\d]+)/g, '$1' + separator + '$2')
+    .toLowerCase();
+
 export default Object.freeze({
   isEmpty,
   isNull,
@@ -74,4 +82,5 @@ export default Object.freeze({
   hasOwnProperty,
   isError,
   formatDate,
+  fromCamelCase,
 });

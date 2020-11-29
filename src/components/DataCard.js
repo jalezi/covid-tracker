@@ -13,6 +13,7 @@ function DataCard({
   isWorld = false,
   options = {},
   skip = false,
+  setFlag = () => {},
 }) {
   const { data, isLoading, hasError, errorMessage, refetch } = useFetch(
     url,
@@ -40,6 +41,7 @@ function DataCard({
       keyPrefix={keyPrefix}
       keySuffixPrepend={title}
       isWorld={isWorld}
+      setFlag={setFlag}
     />
   );
 

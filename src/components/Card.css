@@ -12,10 +12,21 @@
 
 .Card > header > label {
   cursor: pointer;
+  margin: 0 5px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .Card > header > label > .card-title {
   text-transform: uppercase;
+  padding: 0 5px;
+}
+
+.Card > header > label > img {
+  padding: 0 5px;
+  width: 50px;
 }
 
 .Card .buttons {
