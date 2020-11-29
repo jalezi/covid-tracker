@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext, useMemo } from 'react';
 import './Country.css';
 
-import useFetch from './../hooks/useFetch';
 import useLocation from './../hooks/useLocation';
 import browserLocation from '../hooks/useLocation/';
 
-import { URL } from './../utils';
 import { isNull, isEmpty } from '../utils/utilities';
 
 import Select from './Select';
 import Card from './Card';
 import { isUndefined } from './../utils/utilities';
+import { ContinentContext } from '../context/continents';
 
 const { REACT_APP_GOOGLE_MAPS_API_KEY } = process.env;
 
@@ -67,28 +66,19 @@ const locationBasedIndexes = location => {
 };
 
 function Country() {
-  const [continents, setContinents] = useState([]);
-  const [countries, setCountries] = useState([]);
+  console.log('<Country/> START');
+  const {
+    continents,
+    countries,
+    isLoading,
+    hasError,
+    errorMessage,
+  } = useContext(ContinentContext);
+
   const [selectedContinentIndex, setSelectedContinentIndex] = useState(0);
   const [continentCountries, setContinentCountries] = useState([]);
   const [selectedCountryIndex, setSelectedCountryIndex] = useState(0);
   const [country, setCountry] = useState(null);
-
-  const { data, isLoading, hasError, errorMessage } = useFetch(
-    URL.CONTINENTS_URL
-  );
-
-  // get all continents and countries
-  useEffect(() => {
-    const isDataNotNull = !isNull(data);
-    if (isDataNotNull) {
-      const continentNames = data.map(({ continent }) => continent);
-      setContinents(continentNames);
-
-      const continentCountries = data.map(({ countries }) => countries);
-      setCountries(continentCountries);
-    }
-  }, [data]);
 
   // get browser location
   const detector = browserLocation(REACT_APP_GOOGLE_MAPS_API_KEY);
@@ -157,6 +147,11 @@ function Country() {
     />
   );
 
+  console.log('<Country/> select index:', {
+    selectedContinentIndex,
+    selectedCountryIndex,
+  });
+  console.log('<Country/> END');
   return (
     <section className="Country">
       <header>

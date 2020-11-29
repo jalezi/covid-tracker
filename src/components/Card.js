@@ -38,6 +38,7 @@ function Card({
 
   const isCountry = get === 'countries' && !isNull(country);
   const url = isCountry ? `${URL[urlKey]}/${country}` : URL[urlKey];
+  const skip = get === 'countries' && isNull(country);
 
   if (url === undefined) throw new Error('url is undefined');
 
@@ -65,6 +66,7 @@ function Card({
         keyPrefix="today"
         multi={isMultiCard}
         isWorld={isWorld}
+        skip={skip}
       />
       <div className="buttons">
         <button onClick={handleExpand2}>yesterday</button>
@@ -82,6 +84,7 @@ function Card({
         keyPrefix="yesterday"
         multi={isMultiCard}
         isWorld={isWorld}
+        skip={skip}
       />
       <div className="buttons">
         <button onClick={handleExpand1}>today</button>
@@ -99,6 +102,7 @@ function Card({
         keyPrefix="two-days-ago"
         multi={isMultiCard}
         isWorld={isWorld}
+        skip={skip}
       />
       <div className="buttons">
         <button onClick={handleExpand1}>today</button>

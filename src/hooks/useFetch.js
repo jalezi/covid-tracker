@@ -8,6 +8,8 @@ const useFetch = (
   initialOptions = {},
   skip = false
 ) => {
+  console.log('<useFetch/> START');
+  console.log('<useFetch/> skip: ', skip);
   const [url, updateUrl] = useState(initialUrl);
   const [params, updateParams] = useState(initialParams);
   const [options, updateOptions] = useState(initialOptions);
@@ -16,6 +18,7 @@ const useFetch = (
   const [hasError, setHasError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [refetchIndex, setRefetchIndex] = useState(0);
+  console.log('<useFetch/> url: ', url);
 
   const queryString = Object.keys(params)
     .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(params[key]))
@@ -49,6 +52,7 @@ const useFetch = (
     // setTimeout(() => fetchData(), 3000);
   }, [url, params, refetchIndex, queryString, options, skip]);
 
+  console.log('<useFetch/> END');
   return {
     data,
     isLoading,

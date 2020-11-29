@@ -11,11 +11,27 @@ function DataCard({
   keyPrefix,
   multi = false,
   isWorld = false,
+  options = {},
+  skip = false,
 }) {
+  console.log('<DATACARD/> START');
+  console.log('<DATACARD/> props: ', {
+    url,
+    params,
+    title,
+    keyPrefix,
+    multi,
+    isWorld,
+    options,
+    skip,
+  });
   const { data, isLoading, hasError, errorMessage, refetch } = useFetch(
     url,
-    params
+    params,
+    options,
+    skip
   );
+  console.log('<DATACARD/> isLoading: ', isLoading);
 
   if (hasError) {
     console.error(errorMessage);
@@ -39,6 +55,7 @@ function DataCard({
     />
   );
 
+  console.log('<DATACARD/> END');
   return (
     <article className="DataCard">
       <header className="article-header">
