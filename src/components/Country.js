@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import './Country.css';
 
-import useFetch from './../hooks/useFetch';
 import useLocation from './../hooks/useLocation';
 import browserLocation from '../hooks/useLocation/';
 
-import { URL } from './../utils';
 import { isNull, isEmpty } from '../utils/utilities';
 
 import Select from './Select';
 import Card from './Card';
 import { isUndefined } from './../utils/utilities';
+import { ContinentContext } from '../context/continents';
 
 const { REACT_APP_GOOGLE_MAPS_API_KEY } = process.env;
 
@@ -22,7 +21,6 @@ const getContinentAndCountryIndex = (country, countries) => {
   const indexOfCountry = indexOf(country);
   const result = countries
     .map((item, index) => {
-      // console.log(item, index);
       const i = indexOfCountry(item);
       return [index, i];
     })
@@ -67,28 +65,18 @@ const locationBasedIndexes = location => {
 };
 
 function Country() {
-  const [continents, setContinents] = useState([]);
-  const [countries, setCountries] = useState([]);
+  const {
+    continents,
+    countries,
+    isLoading,
+    hasError,
+    errorMessage,
+  } = useContext(ContinentContext);
+
   const [selectedContinentIndex, setSelectedContinentIndex] = useState(0);
   const [continentCountries, setContinentCountries] = useState([]);
   const [selectedCountryIndex, setSelectedCountryIndex] = useState(0);
   const [country, setCountry] = useState(null);
-
-  const { data, isLoading, hasError, errorMessage } = useFetch(
-    URL.CONTINENTS_URL
-  );
-
-  // get all continents and countries
-  useEffect(() => {
-    const dataNotNull = !isNull(data);
-    if (dataNotNull) {
-      const continentNames = data.map(({ continent }) => continent);
-      setContinents(continentNames);
-
-      const continentCountries = data.map(({ countries }) => countries);
-      setCountries(continentCountries);
-    }
-  }, [data]);
 
   // get browser location
   const detector = browserLocation(REACT_APP_GOOGLE_MAPS_API_KEY);
@@ -111,15 +99,15 @@ function Country() {
 
   // get countries for selected continent
   useEffect(() => {
-    const countriesNotEmpty = !isEmpty(countries);
-    if (countriesNotEmpty)
+    const isCountriesNotEmpty = !isEmpty(countries);
+    if (isCountriesNotEmpty)
       setContinentCountries(countries[selectedContinentIndex]);
   }, [countries, selectedContinentIndex]);
 
   // get country from continent countries
   useEffect(() => {
-    const continentCountriesNotEmpty = !isEmpty(continentCountries);
-    if (continentCountriesNotEmpty) {
+    const isContinentCountriesNotEmpty = !isEmpty(continentCountries);
+    if (isContinentCountriesNotEmpty) {
       const countrySelectElement = document.getElementById('countries');
       countrySelectElement.value = selectedCountryIndex;
       setCountry(continentCountries[selectedCountryIndex]);

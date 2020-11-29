@@ -11,10 +11,14 @@ function DataCard({
   keyPrefix,
   multi = false,
   isWorld = false,
+  options = {},
+  skip = false,
 }) {
   const { data, isLoading, hasError, errorMessage, refetch } = useFetch(
     url,
-    params
+    params,
+    options,
+    skip
   );
 
   if (hasError) {

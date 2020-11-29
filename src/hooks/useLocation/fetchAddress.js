@@ -1,6 +1,6 @@
 const fetchAddress = apiKey => ({ longitude, latitude }) =>
   fetch(
-    `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&sensor=false&key=${apiKey}`,
+    `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&sensor=false&language=en&key=${apiKey}`,
     { mode: 'cors' }
   )
     .then(res => {
