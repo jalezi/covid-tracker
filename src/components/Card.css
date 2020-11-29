@@ -21,6 +21,12 @@
 
 .Card > header > label > .card-title {
   text-transform: uppercase;
+  padding: 0 5px;
+}
+
+.Card > header > label > img {
+  padding: 0 5px;
+  width: 50px;
 }
 
 .Card .buttons {
