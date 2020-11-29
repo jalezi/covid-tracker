@@ -11,7 +11,6 @@ function OneCard({
   isWorld = false,
   setFlag = () => {},
 }) {
-  console.log(data);
   const [myData, setMyData] = useState({
     basicData: {},
     perMillionData: {},
