@@ -80,8 +80,8 @@ function Country() {
 
   // get all continents and countries
   useEffect(() => {
-    const dataNotNull = !isNull(data);
-    if (dataNotNull) {
+    const isDataNotNull = !isNull(data);
+    if (isDataNotNull) {
       const continentNames = data.map(({ continent }) => continent);
       setContinents(continentNames);
 
@@ -111,15 +111,15 @@ function Country() {
 
   // get countries for selected continent
   useEffect(() => {
-    const countriesNotEmpty = !isEmpty(countries);
-    if (countriesNotEmpty)
+    const isCountriesNotEmpty = !isEmpty(countries);
+    if (isCountriesNotEmpty)
       setContinentCountries(countries[selectedContinentIndex]);
   }, [countries, selectedContinentIndex]);
 
   // get country from continent countries
   useEffect(() => {
-    const continentCountriesNotEmpty = !isEmpty(continentCountries);
-    if (continentCountriesNotEmpty) {
+    const isContinentCountriesNotEmpty = !isEmpty(continentCountries);
+    if (isContinentCountriesNotEmpty) {
       const countrySelectElement = document.getElementById('countries');
       countrySelectElement.value = selectedCountryIndex;
       setCountry(continentCountries[selectedCountryIndex]);
