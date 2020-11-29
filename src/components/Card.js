@@ -30,6 +30,7 @@ function Card({
   const [expand1, setExpand1] = useState(true);
   const [expand2, setExpand2] = useState(false);
   const [expand3, setExpand3] = useState(false);
+  const [flag, setFlag] = useState(null);
 
   const isWorld = get === 'world';
 
@@ -67,6 +68,7 @@ function Card({
         multi={isMultiCard}
         isWorld={isWorld}
         skip={skip}
+        setFlag={setFlag}
       />
       <div className="buttons">
         <button onClick={handleExpand2}>yesterday</button>
@@ -85,6 +87,7 @@ function Card({
         multi={isMultiCard}
         isWorld={isWorld}
         skip={skip}
+        setFlag={setFlag}
       />
       <div className="buttons">
         <button onClick={handleExpand1}>today</button>
@@ -103,6 +106,7 @@ function Card({
         multi={isMultiCard}
         isWorld={isWorld}
         skip={skip}
+        setFlag={setFlag}
       />
       <div className="buttons">
         <button onClick={handleExpand1}>today</button>
@@ -111,10 +115,17 @@ function Card({
     </>
   );
 
+  const flagImg = flag?.dataObject?.flag ? (
+    <img src={flag?.dataObject?.flag} alt={`${title} flag`} width="100" />
+  ) : (
+    <div style={{ width: '50px' }}></div>
+  );
+
   return (
     <section className="Card">
       <header>
         <label htmlFor={labelFor}>
+          {isCountry ? flagImg : null}
           <h2 className="card-title">{title}</h2>
         </label>
       </header>
