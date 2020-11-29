@@ -6,7 +6,6 @@ import { isNull } from '../utils/utilities';
 export const ContinentContext = createContext();
 
 const ContinentProvider = ({ children }) => {
-  console.log('<ContinentProvider/> START');
   const [continents, setContinents] = useState([]);
   const [countries, setCountries] = useState([]);
   const { data, isLoading, hasError, errorMessage, refetch } = useFetch(
@@ -35,7 +34,6 @@ const ContinentProvider = ({ children }) => {
     refetch,
   };
 
-  console.log('<ContinentProvider/> END');
   return (
     <ContinentContext.Provider value={value}>
       {children}

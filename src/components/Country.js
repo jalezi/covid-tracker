@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useMemo } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import './Country.css';
 
 import useLocation from './../hooks/useLocation';
@@ -21,7 +21,6 @@ const getContinentAndCountryIndex = (country, countries) => {
   const indexOfCountry = indexOf(country);
   const result = countries
     .map((item, index) => {
-      // console.log(item, index);
       const i = indexOfCountry(item);
       return [index, i];
     })
@@ -66,7 +65,6 @@ const locationBasedIndexes = location => {
 };
 
 function Country() {
-  console.log('<Country/> START');
   const {
     continents,
     countries,
@@ -147,11 +145,6 @@ function Country() {
     />
   );
 
-  console.log('<Country/> select index:', {
-    selectedContinentIndex,
-    selectedCountryIndex,
-  });
-  console.log('<Country/> END');
   return (
     <section className="Country">
       <header>
