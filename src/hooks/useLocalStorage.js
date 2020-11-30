@@ -2,21 +2,28 @@ import { useState, useEffect } from 'react';
 
 import { utilities } from '../utils';
 
+const { isNull, isUndefined } = utilities;
+
+const isNotNull = value => !isNull(value);
+
+const isNotUndefined = value => !isUndefined(value);
+
 const getValue = (key, initial) => {
-  if (typeof window !== 'undefined') {
+  if (isNotUndefined(window)) {
     const saved = window.localStorage.getItem(key);
-    if (!utilities.isNull(saved)) return JSON.parsed(saved);
-    return initial;
+    if (isNotNull(saved)) return JSON.parse(saved);
   }
   return initial;
 };
 
 const useLocalStorage = (key, initial) => {
-  const [value, setValue] = useState(getValue);
+  const [value, setValue] = useState(getValue(key, initial));
 
   useEffect(() => {
-    const stringifiedValue = JSON.stringify(value);
-    window.localStorage.setItem(stringifiedValue);
+    if (isNotUndefined(window)) {
+      const stringifiedValue = JSON.stringify(value);
+      window.localStorage.setItem(key, stringifiedValue);
+    }
   });
 
   return [value, setValue];
