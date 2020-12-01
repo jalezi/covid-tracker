@@ -1,37 +1,62 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState, useCallback } from 'react';
 import useFetch from '../hooks/useFetch';
 import { URL } from '../utils/urlAndPath';
 import { isNull } from '../utils/utilities';
+import useLocalStorage from '../hooks/useLocalStorage';
+import { isEmpty } from './../utils/utilities';
 
 export const ContinentContext = createContext();
 
+const useFetchContinents = (skip = false) =>
+  useFetch(URL.CONTINENTS_URL, {}, {}, skip);
+
 const ContinentProvider = ({ children }) => {
-  const [continents, setContinents] = useState([]);
-  const [countries, setCountries] = useState([]);
-  const { data, isLoading, hasError, errorMessage, refetch } = useFetch(
-    URL.CONTINENTS_URL
-  );
+  const [continents, setContinents] = useLocalStorage('continents', []);
+  const [countries, setCountries] = useLocalStorage('countries', []);
+  const [skip, setSkip] = useState(!isEmpty(continents) && !isEmpty(countries));
+
+  const {
+    data,
+    isLoading,
+    hasError,
+    errorMessage,
+    refetch,
+  } = useFetchContinents(skip);
+
+  const memoSetContinents = useCallback(value => setContinents(value), [
+    setContinents,
+  ]);
+  const memoSetCountries = useCallback(value => setCountries(value), [
+    setCountries,
+  ]);
+
+  const isLocalEmpty = isEmpty(continents) || isEmpty(countries);
 
   // get all continents and countries
   useEffect(() => {
     const isDataNotNull = !isNull(data);
-    if (isDataNotNull) {
-      const continentNames = data.map(({ continent }) => continent);
-      setContinents(continentNames);
+    let continentNames;
+    let continentCountries;
 
-      const continentCountries = data.map(({ countries }) => countries);
-      setCountries(continentCountries);
+    if (isDataNotNull && isLocalEmpty) {
+      continentNames = data.map(({ continent }) => continent);
+      memoSetContinents(continentNames);
+
+      continentCountries = data.map(({ countries }) => countries);
+      memoSetCountries(continentCountries);
     }
-  }, [data]);
+    setSkip(!isEmpty(continentNames) && !isEmpty(continentNames));
+  }, [isLocalEmpty, data, memoSetContinents, memoSetCountries, skip, setSkip]);
 
   const value = {
-    data,
     continents,
     countries,
     isLoading,
     hasError,
     errorMessage,
     refetch,
+    skip,
+    setSkip,
   };
 
   return (

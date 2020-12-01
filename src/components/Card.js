@@ -116,7 +116,12 @@ function Card({
   );
 
   const flagImg = flag?.dataObject?.flag ? (
-    <img src={flag?.dataObject?.flag} alt={`${title} flag`} width="100" />
+    <img
+      src={flag?.dataObject?.flag}
+      alt={`${title} flag`}
+      width="100"
+      height="50"
+    />
   ) : (
     <div style={{ width: '50px' }}></div>
   );

@@ -25,8 +25,8 @@
 }
 
 .Card > header > label > img {
-  padding: 0 5px;
   width: 50px;
+  height: 25px;
 }
 
 .Card .buttons {
