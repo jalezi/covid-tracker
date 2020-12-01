@@ -49,5 +49,23 @@ function makePerPersonData(data) {
   return makeDataObject(newData);
 }
 
-const exportDefault = { makeBasicData, makePerMillionData, makePerPersonData };
+function makeCountryInfoData(data) {
+  if (isNull(data)) return null;
+
+  const { countryInfo } = data;
+
+  const newData = {
+    latitude: countryInfo?.lat,
+    longitude: countryInfo?.long,
+    flag: countryInfo?.flag,
+  };
+  return makeDataObject(newData);
+}
+
+const exportDefault = {
+  makeBasicData,
+  makePerMillionData,
+  makePerPersonData,
+  makeCountryInfoData,
+};
 export default exportDefault;

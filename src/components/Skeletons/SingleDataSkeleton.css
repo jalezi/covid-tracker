@@ -3,7 +3,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   border: 2px solid var(--brown-grey);
-  boreder-radius: 16px;
+  border-radius: 16px;
 }
 .SingleDataSkeleton span {
   padding: 3px 5px;
@@ -15,6 +15,8 @@
   background-color: var(--singledata-title-bcg-color);
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
+  text-transform: uppercase;
+  text-align: right;
 }
 
 .SingleDataSkeleton .data {

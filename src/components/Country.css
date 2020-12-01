@@ -2,7 +2,7 @@
   height: 100%;
   margin: 16px 0;
   background: var(--brown-grey);
-  padding: 16px;
+  padding: 0 0;
 }
 
 .Country > header {
@@ -18,11 +18,36 @@
 
 .Country > .country-wrapper {
   display: flex;
+  max-width: 640px;
+  margin: 0 auto;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
   flex-direction: column;
 }
 
 .country-select {
-  color: var(--white);
+  color: var(--brown-grey);
+  font-weight: 600;
+  text-align: center;
+  background: var(--olive);
+  padding: 0 8px;
+  width: 100%;
+}
+
+.country-select-buttons > button {
+  margin: 8px 8px;
+}
+
+@media screen and (min-width: 640px) {
+  .Country {
+    border: 2px solid var(--olive);
+  }
+
+  .country-wrapper > .Card {
+    max-width: 640px;
+  }
+
+  .country-select {
+    min-width: 350px;
+  }
 }

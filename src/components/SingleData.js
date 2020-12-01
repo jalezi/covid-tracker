@@ -12,7 +12,7 @@ function SingleData({ type = 'number', title, value = 0, locales = 'en-US' }) {
 
   return (
     <p className="SingleData">
-      <span className="title">{title}:</span>
+      <span className="title">{title}</span>
       <span className="data">{renderValue}</span>
     </p>
   );

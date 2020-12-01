@@ -1,28 +1,36 @@
-import React from 'react';
+import { forwardRef } from 'react';
 import './Select.css';
 
-function Select({
-  id = 'continents',
-  title = 'continent',
-  data = [],
-  onChange,
-}) {
-  const options = data.map((continent, index) => {
-    return (
-      <option key={index + '' + continent} value={index}>
-        {continent}
-      </option>
-    );
-  });
+const Select = forwardRef(
+  (
+    { id = 'continents', title = 'continent', data = [], onChange, value },
+    ref
+  ) => {
+    const options = data.map((item, index) => {
+      const value = id === 'continents' ? index : item;
 
-  return (
-    <div className="Select">
-      <label htmlFor={id}>{title}:</label>
-      <select name={title} id={id} onChange={onChange}>
-        {options}
-      </select>
-    </div>
-  );
-}
+      return (
+        <option key={index + '' + item} value={value}>
+          {item}
+        </option>
+      );
+    });
+
+    return (
+      <div className="Select">
+        <label htmlFor={id}>{title}:</label>
+        <select
+          ref={ref}
+          name={title}
+          id={id}
+          onChange={onChange}
+          value={value}
+        >
+          {options}
+        </select>
+      </div>
+    );
+  }
+);
 
 export default Select;

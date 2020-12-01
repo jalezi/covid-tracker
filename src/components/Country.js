@@ -1,73 +1,107 @@
-import React, { useEffect, useState } from 'react';
+import { useContext, createRef, useState, useEffect } from 'react';
 import './Country.css';
 
-import Select from './Select';
-import useFetch from './../hooks/useFetch';
-import { URL } from './../utils';
 import { isNull } from '../utils/utilities';
-import { isEmpty } from './../utils/utilities';
+
+import Select from './Select';
 import Card from './Card';
 
-function Country() {
-  const [continents, setContinents] = useState([]);
-  const [countries, setCountries] = useState([]);
-  const [selectedContinentIndex, setSelectedContinentIndex] = useState(0);
-  const [continentCountries, setContinentCountries] = useState([]);
-  const [selectedCountryIndex, setSelectedCountryIndex] = useState(0);
-  const [country, setCountry] = useState(null);
+import { ContinentContext } from '../context/continents';
+import useLocalStorage from '../hooks/useLocalStorage';
+import { LocationContext } from '../context/location';
 
-  const { data, isLoading, hasError, errorMessage } = useFetch(
-    URL.CONTINENTS_URL
+const indexOf = country => continentCountries => {
+  return continentCountries.indexOf(country);
+};
+
+const getContinentIndex = (country, countries) => {
+  const indexOfCountry = indexOf(country);
+  const results = countries
+    .map((item, index) => {
+      const i = indexOfCountry(item);
+      return i === -1 ? null : index;
+    })
+    .filter(index => index);
+  return results[0];
+};
+
+function Country() {
+  const continentsRef = createRef();
+  const countriesRef = createRef();
+
+  const { continents, countries, isLoading, skip } = useContext(
+    ContinentContext
+  );
+
+  const { state, locationSkip } = useContext(LocationContext);
+
+  const [defaultCountry, setDefaultCountry] = useLocalStorage(
+    'defaultCountry',
+    { continent: 0, country: 'Anguilla' }
+  );
+
+  const [selectedContinent, setSelectedContinent] = useState(
+    countries ? 0 : defaultCountry.continent
+  );
+
+  const [selectedCountries, setSelectedCountries] = useState(
+    countries ? [[]] : countries[defaultCountry.continent]
+  );
+  const [selectedCountry, setSelectedCountry] = useState(
+    countries ? 'Anguilla' : defaultCountry.country
   );
 
   useEffect(() => {
-    const dataNotNull = !isNull(data);
-    if (dataNotNull) {
-      const continentNames = data.map(({ continent }) => continent);
-      setContinents(continentNames);
+    setSelectedContinent(defaultCountry.continent);
+    setSelectedCountries(countries[defaultCountry.continent]);
+    setSelectedCountry(defaultCountry.country);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [countries]);
 
-      const continentCountries = data.map(({ countries }) => countries);
-      setCountries(continentCountries);
+  useEffect(() => {
+    const continentIndex = getContinentIndex(state.location, countries);
+    if (state.location) {
+      setSelectedContinent(continentIndex);
+      setSelectedCountries(countries[continentIndex]);
+      setSelectedCountry(state.location);
     }
-  }, [data]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.location, locationSkip.skip]);
 
-  useEffect(() => {
-    const countriesNotEmpty = !isEmpty(countries);
-    if (countriesNotEmpty)
-      setContinentCountries(countries[selectedContinentIndex]);
-  }, [countries, selectedContinentIndex]);
-
-  useEffect(() => {
-    const continentCountriesNotEmpty = !isEmpty(continentCountries);
-    if (continentCountriesNotEmpty)
-      setCountry(continentCountries[selectedCountryIndex]);
-  }, [country, continentCountries, selectedCountryIndex]);
-
-  if (isLoading) <div>Loading...</div>;
-
-  if (hasError) {
-    console.error(errorMessage);
-    return <div>Somenthing went wrong!</div>;
-  }
-
-  const onContinentChange = event => {
-    const { value } = event.target;
-    setSelectedContinentIndex(value);
-    setSelectedCountryIndex(0);
-    setCountry(continentCountries[0]);
+  const onContinentChange = () => {
+    setSelectedContinent(continentsRef.current?.value);
+    setSelectedCountries(countries[continentsRef.current?.value]);
+    setSelectedCountry(countries[continentsRef.current?.value][0]);
   };
 
-  const onCountryChange = event => {
-    const { value } = event.target;
-    setSelectedCountryIndex(value);
-    setCountry(continentCountries[value]);
+  const onCountryChange = () => {
+    setSelectedCountry(countriesRef.current?.value);
   };
 
-  const CountryCard = () => (
+  const onClickDefaultCountry = () => {
+    setSelectedContinent(defaultCountry.continent);
+    setSelectedCountries(countries[defaultCountry.continent]);
+    setSelectedCountry(defaultCountry.country);
+  };
+
+  const onClickSetDefaultCountry = () => {
+    const continentsRefValue = continentsRef.current?.value;
+    const countriesRefValue = countriesRef.current?.value;
+    setDefaultCountry({
+      continent: continentsRefValue,
+      country: countriesRefValue,
+    });
+  };
+
+  const onClickUseLocation = () => {
+    locationSkip.setSkip(false);
+  };
+
+  const CountryCard = props => (
     <Card
       get="countries"
-      country={country}
-      title={country}
+      country={props.selectedCountry}
+      title={props.selectedCountry}
       labelFor="radio3"
       show={true}
     />
@@ -81,25 +115,50 @@ function Country() {
       <div className="country-wrapper">
         <div className="country-select">
           <Select
+            ref={continentsRef}
             id="continents"
             title="continent"
             data={continents}
             isLoading={isLoading}
             onChange={onContinentChange}
+            value={selectedContinent}
           />
           <Select
+            ref={countriesRef}
             id="countries"
             title="country"
-            data={continentCountries}
+            data={selectedCountries}
             isLoading={isLoading}
             onChange={onCountryChange}
+            value={selectedCountry}
           />
+          <div className="country-select-buttons">
+            <button onClick={onClickDefaultCountry}>
+              {defaultCountry.country}
+            </button>
+            <button onClick={onClickSetDefaultCountry}>Set My Country</button>
+            <button onClick={onClickUseLocation}>My Location</button>
+          </div>
         </div>
 
-        {isNull(country) ? <div>Loading...</div> : <CountryCard />}
+        {isNull(selectedCountry) ? (
+          <div>Loading...</div>
+        ) : (
+          <CountryCard selectedCountry={selectedCountry} />
+        )}
       </div>
     </section>
   );
 }
 
 export default Country;
+
+// {isLoading ? (
+//   <div style={{ color: 'white' }}>Loading...</div>
+// ) : (
+//   <div style={{ color: 'white' }}>Not loading</div>
+// )}
+
+// {
+//   /* <div style={{ color: 'white' }}>skip: {`${skip}`}</div> */
+// }

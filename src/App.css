@@ -13,7 +13,7 @@
   display: flex;
   flex-wrap: wrap;
   min-height: 100%;
-  background: var(--green-leaf);
+  background: var(--brown-grey);
 }
 
 .App > main > section {
@@ -26,11 +26,14 @@
   margin: 0 auto;
   margin-bottom: 8px;
   align-self: stretch;
+  border: 2px solid var(--olive);
 }
 
 /* TODO decide section bottom margin */
 .App > main > .Card {
+  margin-top: 8px;
   margin-bottom: 8px;
+  border: 2px solid var(--olive);
 }
 
 .App > main > .Card:last-child {
@@ -62,6 +65,7 @@
   .App > main > .Card {
     margin-bottom: 4.5em;
     flex-grow: 0;
+    border: 2px solid var(--olive);
   }
 
   .App > main > .Country {
@@ -70,5 +74,6 @@
     align-self: stretch;
     height: 100%;
     margin: 16px 0;
+    border: 2px solid var(--olive);
   }
 }

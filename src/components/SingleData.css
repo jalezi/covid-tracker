@@ -20,6 +20,8 @@
   background-color: var(--singledata-title-bcg-color);
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
+  text-transform: uppercase;
+  text-align: right;
 }
 
 .SingleData > .data {
@@ -27,4 +29,5 @@
   background-color: var(--singledata-data-bcg-color);
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
+  text-transform: uppercase;
 }
