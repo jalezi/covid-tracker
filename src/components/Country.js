@@ -1,145 +1,75 @@
-import React, { useEffect, useState, useContext } from 'react';
+import { useContext, createRef, useState, useEffect } from 'react';
 import './Country.css';
 
-import useLocation from './../hooks/useLocation';
-import browserLocation from '../hooks/useLocation/';
-
-import { isNull, isEmpty } from '../utils/utilities';
+import { isNull, isUndefined, isEmpty } from '../utils/utilities';
 
 import Select from './Select';
 import Card from './Card';
-import { isUndefined } from './../utils/utilities';
+
 import { ContinentContext } from '../context/continents';
-
-const { REACT_APP_GOOGLE_MAPS_API_KEY } = process.env;
-
-const indexOf = country => continentCountries => {
-  return continentCountries.indexOf(country);
-};
-
-const getContinentAndCountryIndex = (country, countries) => {
-  const indexOfCountry = indexOf(country);
-  const result = countries
-    .map((item, index) => {
-      const i = indexOfCountry(item);
-      return [index, i];
-    })
-    .filter(item => {
-      return item[1] !== -1;
-    })
-    .reduce((comps, item) => [...comps, ...item], []);
-  return result;
-};
-
-const fromLocationFindContinentAndCountryIndex = (
-  condition,
-  locationCountry,
-  countries
-) => {
-  if (!condition) return [-1, -1];
-  return getContinentAndCountryIndex(locationCountry, countries);
-};
-
-const locationBasedIndexes = location => {
-  let locationCountry = null;
-  let locationError = null;
-  const { loading } = location;
-  if (!loading) {
-    locationCountry = location.location ? location.location : null;
-    locationError = location.error ? location.error : null;
-  }
-
-  if (locationError instanceof Error) return () => [0, 0];
-
-  return countries => {
-    const areContinentCountriesNotEmpty = !isEmpty(countries);
-    const isLocationNotUndefined = !isUndefined(location);
-    const locationAndCountriesExists =
-      areContinentCountriesNotEmpty && isLocationNotUndefined;
-    return fromLocationFindContinentAndCountryIndex(
-      locationAndCountriesExists,
-      locationCountry,
-      countries
-    );
-  };
-};
+import useLocalStorage from '../hooks/useLocalStorage';
 
 function Country() {
-  const {
-    continents,
-    countries,
-    isLoading,
-    hasError,
-    errorMessage,
-  } = useContext(ContinentContext);
+  const continentsRef = createRef();
+  const countriesRef = createRef();
 
-  const [selectedContinentIndex, setSelectedContinentIndex] = useState(0);
-  const [continentCountries, setContinentCountries] = useState([]);
-  const [selectedCountryIndex, setSelectedCountryIndex] = useState(0);
-  const [country, setCountry] = useState(null);
+  const { continents, countries, isLoading, skip } = useContext(
+    ContinentContext
+  );
 
-  // get browser location
-  const detector = browserLocation(REACT_APP_GOOGLE_MAPS_API_KEY);
-  const location = useLocation(detector);
+  const [defaultCountry, setDefaultCountry] = useLocalStorage(
+    'defaultCountry',
+    { continent: 0, country: 'Anguilla' }
+  );
+
+  const [selectedContinent, setSelectedContinent] = useState(
+    countries ? 0 : defaultCountry.continent
+  );
+
+  const [selectedCountries, setSelectedCountries] = useState(
+    countries ? [[]] : countries[defaultCountry.continent]
+  );
+  const [selectedCountry, setSelectedCountry] = useState(
+    countries ? 'Anguilla' : defaultCountry.country
+  );
 
   useEffect(() => {
-    const [continentIndex, countryIndex] = locationBasedIndexes(location)(
-      countries
-    );
-    const canSelectByLocaton = continentIndex > -1 && countryIndex > -1;
-    if (canSelectByLocaton) {
-      const continentSelectElement = document.getElementById('continents');
-      const countrySelectElement = document.getElementById('countries');
-      continentSelectElement.value = continentIndex;
-      countrySelectElement.value = countryIndex;
-      setSelectedContinentIndex(continentIndex);
-      setSelectedCountryIndex(countryIndex);
-    }
-  }, [countries, location]);
+    console.log('first');
+    setSelectedContinent(defaultCountry.continent);
+    setSelectedCountries(countries[defaultCountry.continent]);
+    setSelectedCountry(defaultCountry.country);
+  }, [countries]);
 
-  // get countries for selected continent
-  useEffect(() => {
-    const isCountriesNotEmpty = !isEmpty(countries);
-    if (isCountriesNotEmpty)
-      setContinentCountries(countries[selectedContinentIndex]);
-  }, [countries, selectedContinentIndex]);
-
-  // get country from continent countries
-  useEffect(() => {
-    const isContinentCountriesNotEmpty = !isEmpty(continentCountries);
-    if (isContinentCountriesNotEmpty) {
-      const countrySelectElement = document.getElementById('countries');
-      countrySelectElement.value = selectedCountryIndex;
-      setCountry(continentCountries[selectedCountryIndex]);
-    }
-  }, [country, continentCountries, selectedCountryIndex]);
-
-  // TODO create skeleton
-  if (isLoading) <div>Loading...</div>;
-
-  if (hasError) {
-    console.error(errorMessage);
-    return <div>Somenthing went wrong!</div>;
-  }
-
-  const onContinentChange = event => {
-    const { value } = event.target;
-    setSelectedContinentIndex(value);
-    setSelectedCountryIndex(0);
-    setCountry(continentCountries[0]);
+  const onContinentChange = () => {
+    setSelectedContinent(continentsRef.current?.value);
+    setSelectedCountries(countries[continentsRef.current?.value]);
+    setSelectedCountry(countries[continentsRef.current?.value][0]);
   };
 
-  const onCountryChange = event => {
-    const { value } = event.target;
-    setSelectedCountryIndex(value);
-    setCountry(continentCountries[value]);
+  const onCountryChange = () => {
+    setSelectedCountry(countriesRef.current?.value);
   };
 
-  const CountryCard = () => (
+  const onClickDefaultCountry = () => {
+    setSelectedContinent(defaultCountry.continent);
+    setSelectedCountries(countries[defaultCountry.continent]);
+    setSelectedCountry(defaultCountry.country);
+  };
+
+  const onClickSetDefaultCountry = () => {
+    const continentsRefValue = continentsRef.current?.value;
+    const countriesRefValue = countriesRef.current?.value;
+    setDefaultCountry({
+      continent: continentsRefValue,
+      country: countriesRefValue,
+    });
+  };
+
+  const CountryCard = props => (
     <Card
       get="countries"
-      country={country}
-      title={country}
+      country={props.selectedCountry}
+      title={props.selectedCountry}
       labelFor="radio3"
       show={true}
     />
@@ -153,25 +83,49 @@ function Country() {
       <div className="country-wrapper">
         <div className="country-select">
           <Select
+            ref={continentsRef}
             id="continents"
             title="continent"
             data={continents}
             isLoading={isLoading}
             onChange={onContinentChange}
+            value={selectedContinent}
           />
           <Select
+            ref={countriesRef}
             id="countries"
             title="country"
-            data={continentCountries}
+            data={selectedCountries}
             isLoading={isLoading}
             onChange={onCountryChange}
+            value={selectedCountry}
           />
+          <div className="country-select-buttons">
+            <button onClick={onClickDefaultCountry}>
+              {defaultCountry.country}
+            </button>
+            <button onClick={onClickSetDefaultCountry}>Set My Country</button>
+          </div>
         </div>
 
-        {isNull(country) ? <div>Loading...</div> : <CountryCard />}
+        {isNull(selectedCountry) ? (
+          <div>Loading...</div>
+        ) : (
+          <CountryCard selectedCountry={selectedCountry} />
+        )}
       </div>
     </section>
   );
 }
 
 export default Country;
+
+// {isLoading ? (
+//   <div style={{ color: 'white' }}>Loading...</div>
+// ) : (
+//   <div style={{ color: 'white' }}>Not loading</div>
+// )}
+
+// {
+//   /* <div style={{ color: 'white' }}>skip: {`${skip}`}</div> */
+// }
