@@ -1,12 +1,17 @@
 .Select {
-  padding: 8px 0;
+  margin: 8px;
+  padding: 8px 8px;
   text-align: right;
+  display: inline-block;
 }
+.Select > select,
 .Select > label {
   padding: 4px 4px;
+  color: var(--brown-grey);
 }
 
 @media only screen and (min-width: 375px) {
+  .Select > select,
   .Select > label {
     padding: 4px 8px;
   }
