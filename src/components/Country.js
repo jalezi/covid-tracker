@@ -29,9 +29,7 @@ function Country() {
   const continentsRef = createRef();
   const countriesRef = createRef();
 
-  const { continents, countries, isLoading, skip } = useContext(
-    ContinentContext
-  );
+  const { continents, countries, isLoading } = useContext(ContinentContext);
 
   const { state, locationSkip } = useContext(LocationContext);
 
