@@ -1,13 +1,29 @@
 import { useContext, createRef, useState, useEffect } from 'react';
 import './Country.css';
 
-import { isNull, isUndefined, isEmpty } from '../utils/utilities';
+import { isNull } from '../utils/utilities';
 
 import Select from './Select';
 import Card from './Card';
 
 import { ContinentContext } from '../context/continents';
 import useLocalStorage from '../hooks/useLocalStorage';
+import { LocationContext } from '../context/location';
+
+const indexOf = country => continentCountries => {
+  return continentCountries.indexOf(country);
+};
+
+const getContinentIndex = (country, countries) => {
+  const indexOfCountry = indexOf(country);
+  const results = countries
+    .map((item, index) => {
+      const i = indexOfCountry(item);
+      return i === -1 ? null : index;
+    })
+    .filter(index => index);
+  return results[0];
+};
 
 function Country() {
   const continentsRef = createRef();
@@ -16,6 +32,8 @@ function Country() {
   const { continents, countries, isLoading, skip } = useContext(
     ContinentContext
   );
+
+  const { state, locationSkip } = useContext(LocationContext);
 
   const [defaultCountry, setDefaultCountry] = useLocalStorage(
     'defaultCountry',
@@ -34,11 +52,21 @@ function Country() {
   );
 
   useEffect(() => {
-    console.log('first');
     setSelectedContinent(defaultCountry.continent);
     setSelectedCountries(countries[defaultCountry.continent]);
     setSelectedCountry(defaultCountry.country);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [countries]);
+
+  useEffect(() => {
+    const continentIndex = getContinentIndex(state.location, countries);
+    if (state.location) {
+      setSelectedContinent(continentIndex);
+      setSelectedCountries(countries[continentIndex]);
+      setSelectedCountry(state.location);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.location, locationSkip.skip]);
 
   const onContinentChange = () => {
     setSelectedContinent(continentsRef.current?.value);
@@ -63,6 +91,10 @@ function Country() {
       continent: continentsRefValue,
       country: countriesRefValue,
     });
+  };
+
+  const onClickUseLocation = () => {
+    locationSkip.setSkip(false);
   };
 
   const CountryCard = props => (
@@ -105,6 +137,7 @@ function Country() {
               {defaultCountry.country}
             </button>
             <button onClick={onClickSetDefaultCountry}>Set My Country</button>
+            <button onClick={onClickUseLocation}>My Location</button>
           </div>
         </div>
 
