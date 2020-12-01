@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import { useLayoutEffect, useRef, useState } from 'react';
 import Country from './components/Country';
 import ContinentProvider from './context/continents';
+import LocationProvider from './context/location';
 
 function App() {
   const [state, setState] = useState({ radio1: false, radio2: false });
@@ -63,7 +64,9 @@ function App() {
           />
         </div>
         <ContinentProvider>
-          <Country />
+          <LocationProvider>
+            <Country />
+          </LocationProvider>
         </ContinentProvider>
 
         <Card
